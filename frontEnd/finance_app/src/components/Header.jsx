@@ -14,12 +14,13 @@ import Divider from "@mui/material/Divider";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import { ListItem, TextField } from "@mui/material";
 
 const StyledSearch = styled("div")(({ theme }) => ({
+  display: "flex",
   position: "relative",
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.grey[500], 0.15),
@@ -29,20 +30,11 @@ const StyledSearch = styled("div")(({ theme }) => ({
   marginLeft: 0,
   width: "100%",
   [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
     width: "auto",
   },
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-  },
+  color: "white",
+  alignItems: "center",
+  justifyContent: "center",
 }));
 
 const StyledCircleIcon = styled(AccountCircleIcon)({
@@ -71,20 +63,55 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   },
 }));
 
-const search = (
-  <StyledSearch sx={{ color: "white" }}>
-    <IconButton color="inherit">
-      <SearchIcon />
-    </IconButton>
-    <StyledInputBase
-      placeholder="Search…"
-      inputProps={{ "aria-label": "search" }}
-    />
-  </StyledSearch>
-);
+const StyledTextField = styled(TextField)(({ theme }) => ({
+  padding: "0",
+  margin: "0",
+  color: "inherit",
+  "& .MuiInputBase-input": {
+    padding: "0",
+    border: "none",
+    color: "white",
+    [theme.breakpoints.up("md")]: {
+      width: "20ch",
+    },
+  },
+  "& .MuiOutlinedInput-notchedOutline": {
+    border: "none",
+  },
+  "& .MuiInputBase-root": {
+    padding: "0",
+  },
+}));
+
+const StyledListItem = styled(ListItem)({
+  width: "30xp",
+});
 
 export default function Header() {
   const [open, setState] = useState(false);
+  const [openSearch, setOpenSearch] = useState(false);
+  const [textValue, setTextValue] = useState("");
+
+  const handleButtonClick = () => {
+    setOpenSearch(false);
+    setTextValue("");
+  };
+
+  const search = (
+    <StyledSearch>
+      <IconButton color="inherit">
+        <SearchIcon />
+      </IconButton>
+      <StyledTextField
+        id="filled-basic"
+        value={textValue}
+        onChange={(e) => setTextValue(e.target.value)}
+      />
+      <IconButton onClick={() => setOpenSearch(handleButtonClick)}>
+        <CloseIcon sx={{ color: "white" }} />
+      </IconButton>
+    </StyledSearch>
+  );
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -106,17 +133,15 @@ export default function Header() {
     >
       <StyledContainer maxWidth="false">
         <StyledToolbar>
-          <Typography
-            variant="h6"
-            sx={{ flexGrow: 1, fontWeight: 700 }}
-            display="flex"
-          >
-            <img src="src/assets/logo.svg" alt="logo" width="200px" />
+          <Typography sx={{ flexGrow: 1 }} display="flex">
+            <img src="src/assets/logo.svg" alt="logo" width="180px" />
           </Typography>
           <Typography
             variant="h6"
-            sx={{ flexGrow: 5, fontWeight: 700 }}
-          ></Typography>
+            sx={{ flexGrow: 1, fontWeight: 700, padding: "8px" }}
+          >
+            Labas Virgi albertai gufoni
+          </Typography>
 
           <StyledMenuBox
             component="div"
@@ -127,7 +152,13 @@ export default function Header() {
               },
             }}
           >
-            {search}
+            {!openSearch ? (
+              <IconButton color="inherit" onClick={() => setOpenSearch(true)}>
+                <SearchIcon />
+              </IconButton>
+            ) : (
+              search
+            )}
             <IconButton color="inherit">
               <NotificationsIcon />
             </IconButton>
@@ -186,8 +217,8 @@ export default function Header() {
                     sx={{ color: "white" }}
                   />
                 </ListItemButton>
+                <StyledListItem>{search}</StyledListItem>
               </Box>
-              {search}
             </Box>
           </Drawer>
         </StyledToolbar>
