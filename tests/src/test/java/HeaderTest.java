@@ -6,5 +6,6 @@ public class HeaderTest extends BaseTest {
         MainPageHeader mainPageHeader = new MainPageHeader(driver);
 
         mainPageHeader.visibleLogo();
+        mainPageHeader.visibleGreeting();
     }
 }
