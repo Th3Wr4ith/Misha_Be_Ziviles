@@ -4,7 +4,50 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4483b66a-7834-4340-8394-743eb0c4195d" name="Changes" comment="" />
+    <list default="true" id="4483b66a-7834-4340-8394-743eb0c4195d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/incomesData.mv.db" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/incomesData.trace.db" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/src/main/java/com/project/MishaPay/Exeptions/ResourceNotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/src/main/java/com/project/MishaPay/Expenses/Expenses.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/src/main/java/com/project/MishaPay/Expenses/ExpensesController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/src/main/java/com/project/MishaPay/Expenses/ExpensesRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/src/main/java/com/project/MishaPay/Expenses/ExpensesService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/src/main/java/com/project/MishaPay/Income/Income.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/src/main/java/com/project/MishaPay/Income/IncomeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/src/main/java/com/project/MishaPay/Income/IncomeRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/src/main/java/com/project/MishaPay/Income/IncomeService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/src/main/java/com/project/MishaPay/MishaPayApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/src/test/java/com/project/MishaPay/MishaPayApplicationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/uiDesigner.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backEnd/test.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontEnd/finance_app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontEnd/finance_app/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontEnd/finance_app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontEnd/finance_app/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontEnd/test.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/MainPageHeader.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/PageObject.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/test-classes/BaseTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/test-classes/HeaderTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/HeaderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/HeaderTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/HeaderTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/HeaderTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.txt" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
