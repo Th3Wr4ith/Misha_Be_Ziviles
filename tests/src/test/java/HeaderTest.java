@@ -15,5 +15,8 @@ public class HeaderTest extends BaseTest {
 
         WebElement searchButton = mainPageHeader.setSearchButton();
         new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.visibilityOf(searchButton)).click();
+
+        mainPageHeader.visibleNotification();
+        mainPageHeader.visibleAvatar();
     }
 }

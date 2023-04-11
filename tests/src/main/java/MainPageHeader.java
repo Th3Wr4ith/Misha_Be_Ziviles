@@ -12,6 +12,12 @@ public class MainPageHeader extends PageObject {
     @FindBy(xpath = "//*[@id=\"root\"]/div/header/div/div/div/button[1]")
     private WebElement searchButton;
 
+    @FindBy (css = "#root > div > header > div > div > div > button:nth-child(2)")
+    private WebElement notification;
+
+    @FindBy (css = "#root > div > header > div > div > div > button:nth-child(3)")
+    private WebElement avatar;
+
 
     public MainPageHeader(WebDriver driver) {
         super(driver);
@@ -30,6 +36,14 @@ public class MainPageHeader extends PageObject {
             searchButton.click();
         }
         return searchButton;
+    }
+
+    public void visibleNotification() {
+        notification.isDisplayed();
+    }
+
+    public void visibleAvatar() {
+        avatar.isDisplayed();
     }
 }
 
