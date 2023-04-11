@@ -14,6 +14,10 @@ import {
   TextField,
   IconButton,
 } from "@mui/material";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
+import "dayjs/locale/lt";
 
 function ExpensesTable({ expense, onUpdateExpenses }) {
   const [editingId, setEditingId] = useState(null);
@@ -76,13 +80,23 @@ function ExpensesTable({ expense, onUpdateExpenses }) {
               </TableCell>
               <TableCell>
                 {editingId === key ? (
-                  <TextField
-                    fullWidth
-                    value={expense[key].date}
-                    onChange={(e) =>
-                      handleFieldChange(key, "date", e.target.value)
-                    }
-                  />
+                  <LocalizationProvider
+                    dateAdapter={AdapterDayjs}
+                    adapterLocale="lt"
+                  >
+                    <DatePicker
+                      fullWidth
+                      value={dayjs(expense[key].date, "YYYY-MM-DD")}
+                      onChange={(newValue) =>
+                        handleFieldChange(
+                          key,
+                          "date",
+                          newValue.toISOString().split("T")[0]
+                        )
+                      }
+                      renderInput={(params) => <TextField {...params} />}
+                    />
+                  </LocalizationProvider>
                 ) : (
                   expense[key].date
                 )}
