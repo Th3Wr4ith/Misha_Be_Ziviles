@@ -1,4 +1,4 @@
-package com.project.MishaPay.Income;
+package com.project.MishaPay.Expense;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -10,8 +10,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "incomes")
-public class Income {
+@Table(name = "expenses")
+public class Expense {
 
 	@Id
 	@GeneratedValue
@@ -24,24 +24,29 @@ public class Income {
 	@Column(name = "name")
 	private String name;
 
+	@Column(name = "category")
+	private String category;
+
 	@Column(name = "date")
 	private LocalDate date;
 
-	public Income() {
+	public Expense() {
 	}
 
-	public Income(Long id, BigDecimal amount, String name, LocalDate date) {
+	public Expense(Long id, BigDecimal amount, String name, String category, LocalDate date) {
 
 		this.id = id;
 		this.amount = amount;
 		this.name = name;
+		this.category = category;
 		this.date = date;
 	}
 
-	public Income(BigDecimal amount, String name, LocalDate date) {
+	public Expense(BigDecimal amount, String name, String category, LocalDate date) {
 
 		this.amount = amount;
 		this.name = name;
+		this.category = category;
 		this.date = date;
 	}
 
@@ -57,8 +62,8 @@ public class Income {
 		return amount;
 	}
 
-	public void setAmount(BigDecimal incomeAmount) {
-		this.amount = incomeAmount;
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
 	}
 
 	public String getName() {
@@ -67,6 +72,14 @@ public class Income {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	public LocalDate getDate() {
@@ -79,6 +92,7 @@ public class Income {
 
 	@Override
 	public String toString() {
-		return "Incomes [id=" + id + ", amount=" + amount + ", name=" + name + ", date=" + date + "]";
+		return "Expenses [id=" + id + ", amount=" + amount + ", name=" + name + ", category=" + category + ", date="
+				+ date + "]";
 	}
 }
