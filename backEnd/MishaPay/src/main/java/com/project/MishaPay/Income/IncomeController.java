@@ -3,9 +3,11 @@ package com.project.MishaPay.Income;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,46 +15,48 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/api/v1/income")
+@RequestMapping(path = "/api/v1/incomes")
 
 public class IncomeController {
 
-	private final IncomeService incomeService;
+	private final IncomeService incomesService;
 
 	@Autowired
-	public IncomeController(IncomeService incomeService) {
+	public IncomeController(IncomeService incomesService) {
 
-		this.incomeService = incomeService;
+		this.incomesService = incomesService;
 	}
 
 	@GetMapping
-	public List<Income> getIncome() {
+	public List<Income> getIncomes() {
 
-		return incomeService.getIncome();
+		return incomesService.getIncomes();
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<Income> getIncomesById(@PathVariable Long id) {
+
+		return ResponseEntity.ok().body(incomesService.getIncomesById(id));
 	}
 
 	@PostMapping
-	public Income createIncome(@RequestBody Income income) {
+	public Income createIncomes(@RequestBody Income incomes) {
 
-		return incomeService.createIncome(income);
+		return incomesService.createIncomes(incomes);
 	}
 
-	@GetMapping("{incomeId}")
-	public ResponseEntity<Income> getIncomeById(Income incomeById) {
+	@PutMapping("/{id}")
+	public ResponseEntity<Income> updateIncomes(@PathVariable Long id, @RequestBody Income updatedIncomes) {
 
-		return incomeService.getIncomeById(null);
+		return incomesService.updateIncomes(id, updatedIncomes);
+
 	}
 
-	@PutMapping("{incomeId}")
-	public ResponseEntity<Income> updateIncome(@RequestBody Income incomeDetails) {
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deleteIncomes(@PathVariable Long id) {
 
-		return updateIncome(incomeDetails);
-	}
+		incomesService.deleteIncomes(id);
 
-	@DeleteMapping("{incomeId}")
-	public ResponseEntity<Income> deleteIncome(@RequestBody Income income) {
-
-		return deleteIncome(income);
-
+		return new ResponseEntity<>("Incomes successfully deleted!", HttpStatus.OK);
 	}
 }

@@ -3,59 +3,52 @@ package com.project.MishaPay.Income;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import com.project.MishaPay.Exeptions.ResourceNotFoundException;
+import com.project.MishaPay.Exeption.ResourceNotFoundException;
 
 @Service
 public class IncomeService {
 
 	@Autowired
-	private IncomeRepository incomeRepository;
+	private IncomeRepository incomesRepository;
 
-	public List<Income> getIncome() {
+	public List<Income> getIncomes() {
 
-		return incomeRepository.findAll();
+		return incomesRepository.findAll();
 	}
 
-	public Income createIncome(Income income) {
+	public Income getIncomesById(Long id) throws ResourceNotFoundException {
 
-		return incomeRepository.save(income);
+		Income incomesById = incomesRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Incomes does not exist with id:" + id));
+
+		return incomesById;
 	}
 
-	public ResponseEntity<Income> getIncomeById(@PathVariable Long incomeId) {
+	public Income createIncomes(Income incomes) {
 
-		Income incomeById = incomeRepository.findById(incomeId)
-				.orElseThrow(() -> new ResourceNotFoundException("Income not exist with id:" + incomeId));
-
-		return ResponseEntity.ok(incomeById);
+		return incomesRepository.save(incomes);
 	}
 
-	public ResponseEntity<Income> updateIncome(@PathVariable Long incomeId, Income incomeDetails) {
+	public ResponseEntity<Income> updateIncomes(Long id, Income incomesDetails) {
 
-		Income updateIncome = incomeRepository.findById(incomeId)
-				.orElseThrow(() -> new ResourceNotFoundException("Income not exist with id: " + incomeId));
+		Income incomes = incomesRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Incomes does not exist with id: " + id));
 
-		updateIncome.setIncomeAmount(incomeDetails.getIncomeAmount());
-		updateIncome.setIncomeCategory(incomeDetails.getIncomeCategory());
-		updateIncome.setIncomeDate(incomeDetails.getIncomeDate());
+		incomes.setAmount(incomesDetails.getAmount());
+		incomes.setName(incomesDetails.getName());
+		incomes.setDate(incomesDetails.getDate());
 
-		incomeRepository.save(updateIncome);
+		Income updatedIncomes = incomesRepository.save(incomes);
 
-		return ResponseEntity.ok(updateIncome);
+		return ResponseEntity.ok(updatedIncomes);
 	}
 
-	public ResponseEntity<Income> deleteIncome(@PathVariable Long incomeId) {
+	public void deleteIncomes(Long id) {
 
-		Income income = incomeRepository.findById(incomeId)
-				.orElseThrow(() -> new ResourceNotFoundException("Income not exist with id: " + incomeId));
-
-		incomesRepository.delete(income);
-
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		incomesRepository.deleteById(id);
 
 	}
 }

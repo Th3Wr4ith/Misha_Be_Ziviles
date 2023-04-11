@@ -1,4 +1,4 @@
-package com.project.MishaPay.Exeptions;
+package com.project.MishaPay.Exeption;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
