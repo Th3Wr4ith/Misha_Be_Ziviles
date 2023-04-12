@@ -1,4 +1,4 @@
-package com.project.MishaPay.Expense;
+package com.project.mishaPay.expense;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.project.MishaPay.Exeption.ResourceNotFoundException;
+import com.project.mishaPay.exeption.ResourceNotFoundException;
 
 @Service
 public class ExpenseService {

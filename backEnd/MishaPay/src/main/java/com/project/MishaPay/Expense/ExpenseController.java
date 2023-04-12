@@ -1,4 +1,4 @@
-package com.project.MishaPay.Expense;
+package com.project.mishaPay.expense;
 
 import java.util.List;
 

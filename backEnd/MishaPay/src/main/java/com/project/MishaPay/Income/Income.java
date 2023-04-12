@@ -1,4 +1,4 @@
-package com.project.MishaPay.Income;
+package com.project.mishaPay.income;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
