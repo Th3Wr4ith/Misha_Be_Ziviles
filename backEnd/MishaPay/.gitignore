@@ -36,3 +36,4 @@ build/
 ### Generated DB's ###
 mishaPayData.mv.db
 
+/bin/

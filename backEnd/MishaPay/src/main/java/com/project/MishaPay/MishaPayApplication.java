@@ -1,4 +1,4 @@
-package com.project.MishaPay;
+package com.project.mishaPay;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
