@@ -57,8 +57,8 @@ public class Income {
 		return amount;
 	}
 
-	public void setAmount(BigDecimal incomeAmount) {
-		this.amount = incomeAmount;
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
 	}
 
 	public String getName() {
