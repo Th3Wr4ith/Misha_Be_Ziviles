@@ -19,7 +19,9 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import "dayjs/locale/lt";
 
-function ExpensesTable({ expense, onUpdateExpenses }) {
+function IncomeTable({ income, onUpdateIncomes }) {
+  const [incomes, setIncomes] = useState({});
+
   const [editingId, setEditingId] = useState(null);
 
   const handleEdit = (id) => {
@@ -35,25 +37,25 @@ function ExpensesTable({ expense, onUpdateExpenses }) {
   };
 
   const handleFieldChange = (id, field, value) => {
-    const updatedExpenses = {
-      ...expense,
+    const updatedIncomes = {
+      ...income,
       [id]: {
-        ...expense[id],
+        ...income[id],
         [field]: value,
       },
     };
-    onUpdateExpenses(updatedExpenses);
+    onUpdateincomes(updatedIncomes);
   };
 
   const handleDelete = (id) => {
-    const newExpenses = { ...expense };
-    delete newExpenses[id];
-    onUpdateExpenses(newExpenses);
+    const newIncomes = { ...income };
+    delete newIncome[id];
+    onUpdateIncomes(newIncome);
   };
 
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="Expenses table">
+      <Table sx={{ minWidth: 650 }} aria-label="incomes table">
         <TableHead>
           <TableRow>
             <TableCell>Amount</TableCell>
@@ -63,19 +65,19 @@ function ExpensesTable({ expense, onUpdateExpenses }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {Object.keys(expense).map((key) => (
+          {Object.keys(income).map((key) => (
             <TableRow key={key}>
               <TableCell component="th" scope="row">
                 {editingId === key ? (
                   <TextField
                     fullWidth
-                    value={expense[key].amount}
+                    value={income[key].amount}
                     onChange={(e) =>
                       handleFieldChange(key, "amount", e.target.value)
                     }
                   />
                 ) : (
-                  expense[key].amount
+                  income[key].amount
                 )}
               </TableCell>
               <TableCell>
@@ -86,7 +88,7 @@ function ExpensesTable({ expense, onUpdateExpenses }) {
                   >
                     <DatePicker
                       fullWidth
-                      value={dayjs(expense[key].date, "YYYY-MM-DD")}
+                      value={dayjs(income[key].date, "YYYY-MM-DD")}
                       onChange={(newValue) =>
                         handleFieldChange(
                           key,
@@ -98,20 +100,20 @@ function ExpensesTable({ expense, onUpdateExpenses }) {
                     />
                   </LocalizationProvider>
                 ) : (
-                  expense[key].date
+                  income[key].date
                 )}
               </TableCell>
               <TableCell>
                 {editingId === key ? (
                   <TextField
                     fullWidth
-                    value={expense[key].name}
+                    value={income[key].name}
                     onChange={(e) =>
                       handleFieldChange(key, "name", e.target.value)
                     }
                   />
                 ) : (
-                  expense[key].name
+                  income[key].name
                 )}
               </TableCell>
               <TableCell align="right">
@@ -146,4 +148,4 @@ function ExpensesTable({ expense, onUpdateExpenses }) {
     </TableContainer>
   );
 }
-export default ExpensesTable;
+export default IncomeTable;
