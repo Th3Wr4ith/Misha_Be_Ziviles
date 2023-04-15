@@ -17,7 +17,11 @@ import ListItemText from "@mui/material/ListItemText";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { ListItem, TextField } from "@mui/material";
+import HomeIcon from "@mui/icons-material/Home";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import { Button, ListItem, TextField, Tooltip } from "@mui/material";
+import CreditCardIcon from "@mui/icons-material/CreditCard";
+import { Link } from "react-router-dom";
 
 const StyledSearch = styled("div")(({ theme }) => ({
   display: "flex",
@@ -136,12 +140,6 @@ export default function Header() {
           <Typography sx={{ flexGrow: 1 }} display="flex">
             <img src="src/assets/logo.svg" alt="logo" width="180px" />
           </Typography>
-          <Typography
-            variant="h6"
-            sx={{ flexGrow: 1, fontWeight: 700, padding: "8px" }}
-          >
-            Labas Virgi albertai gufoni
-          </Typography>
 
           <StyledMenuBox
             component="div"
@@ -152,6 +150,34 @@ export default function Header() {
               },
             }}
           >
+            <IconButton href="/" color="inherit" sx={{ borderRadius: 0 }}>
+              <HomeIcon />
+              <Typography variant="button" sx={{ ml: 1 }}>
+                Home
+              </Typography>
+            </IconButton>
+
+            <IconButton
+              href="/"
+              color="inherit"
+              sx={{ borderRadius: 0, textAlign: "center" }}
+            >
+              <AttachMoneyIcon />
+              <Typography variant="button" sx={{ ml: 1 }}>
+                Incomes
+              </Typography>
+            </IconButton>
+
+            <IconButton
+              href="/expenses"
+              color="inherit"
+              sx={{ borderRadius: 0 }}
+            >
+              <CreditCardIcon />
+              <Typography variant="button" sx={{ ml: 1 }}>
+                Expenses
+              </Typography>
+            </IconButton>
             {!openSearch ? (
               <IconButton color="inherit" onClick={() => setOpenSearch(true)}>
                 <SearchIcon />
@@ -198,6 +224,25 @@ export default function Header() {
                 />
               </IconButton>
 
+              <Divider sx={{ mb: 2 }} />
+              <ListItemButton href="/">
+                <ListItemIcon>
+                  <HomeIcon sx={{ color: "white" }} />
+                </ListItemIcon>
+                <ListItemText primary="HOME" sx={{ color: "white" }} />
+              </ListItemButton>
+              <ListItemButton href="/incomes">
+                <ListItemIcon>
+                  <AttachMoneyIcon sx={{ color: "white" }} />
+                </ListItemIcon>
+                <ListItemText primary="INCOMES" sx={{ color: "white" }} />
+              </ListItemButton>
+              <ListItemButton href="/expenses">
+                <ListItemIcon>
+                  <CreditCardIcon sx={{ color: "white" }} />
+                </ListItemIcon>
+                <ListItemText primary="EXPENSES" sx={{ color: "white" }} />
+              </ListItemButton>
               <Divider sx={{ mb: 2 }} />
 
               <Box sx={{ mb: 2 }}>

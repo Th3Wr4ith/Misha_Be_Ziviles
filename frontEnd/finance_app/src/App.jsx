@@ -1,10 +1,12 @@
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Box, Container } from "@mui/material";
-import ExpensesTable from "./components/ExpensesTable";
+import IncomeTable from "./components/IncomeTable";
 import Header from "./components/Header";
-import AddExpenseForm from "./components/AddExpensesForm";
+import AddIncomeForm from "./components/AddIncomeForm";
+import Incomes from "./pages/Incomes";
 
 const darkTheme = createTheme({
   palette: {
@@ -13,54 +15,25 @@ const darkTheme = createTheme({
 });
 
 function App() {
-  const [expenses, setExpenses] = useState({
-    id1: {
-      amount: 10.0,
-      date: "2022-02-03",
-      name: "Winesss",
-    },
-    id2: {
-      amount: 16.0,
-      date: "2022-02-03",
-      name: "Cheese",
-    },
-    id3: {
-      amount: 16.0,
-      date: "2022-02-03",
-      name: "Bread",
-    },
-  });
-
-  const handleAddExpense = (newExpense) => {
-    const newId = `id${Object.keys(expenses).length + Math.random()}`;
-    console.log(newExpense);
-    setExpenses((prevExpenses) => ({
-      ...prevExpenses,
-      [newId]: {
-        ...newExpense,
-      },
-    }));
-    console.log("expenses:", expenses);
-  };
-
-  const handleUpdateExpenses = (updatedExpenses) => {
-    setExpenses(updatedExpenses);
+  const handleUpdateIncomes = (updatedIncomes) => {
+    setIncomes(updatedIncomes);
   };
   return (
-    <ThemeProvider theme={darkTheme}>
-      <div className="App">
-        <Header />
-        <Container maxWidth="md">
-          <Box sx={{ my: 4 }}>
-            <AddExpenseForm onAddExpense={handleAddExpense} />
-            <ExpensesTable
-              expense={expenses}
-              onUpdateExpenses={handleUpdateExpenses}
-            />
-          </Box>
-        </Container>
-      </div>
-    </ThemeProvider>
+    <>
+      <ThemeProvider theme={darkTheme}>
+        <div className="App">
+          <Header />
+        </div>
+
+        <Router>
+          <Routes>
+            <Route path="/" />
+            <Route path="/incomes" element={<Incomes />} />
+            <Route path="/incomeTable" element={<IncomeTable />} />
+          </Routes>
+        </Router>
+      </ThemeProvider>
+    </>
   );
 }
 
