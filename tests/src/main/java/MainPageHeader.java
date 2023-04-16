@@ -12,6 +12,9 @@ public class MainPageHeader extends PageObject {
     @FindBy(xpath = "//*[@id=\"root\"]/div/header/div/div/div/button[1]")
     private WebElement searchButton;
 
+    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/header/div/div/div/div/button[2]")
+    private WebElement closeSearch;
+
     @FindBy (css = "#root > div > header > div > div > div > button:nth-child(2)")
     private WebElement notification;
 
@@ -36,6 +39,10 @@ public class MainPageHeader extends PageObject {
             searchButton.click();
         }
         return searchButton;
+    }
+
+    public void setCloseSearch(){
+        closeSearch.click();
     }
 
     public void visibleNotification() {
