@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4483b66a-7834-4340-8394-743eb0c4195d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/incomesData.mv.db" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/incomesData.trace.db" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/src/main/java/com/project/MishaPay/Exeptions/ResourceNotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/src/main/java/com/project/MishaPay/Expenses/Expenses.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/src/main/java/com/project/MishaPay/Expenses/ExpensesController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/src/main/java/com/project/MishaPay/Expenses/ExpensesRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/src/main/java/com/project/MishaPay/Expenses/ExpensesService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/src/main/java/com/project/MishaPay/Income/Income.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/src/main/java/com/project/MishaPay/Income/IncomeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/src/main/java/com/project/MishaPay/Income/IncomeRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/src/main/java/com/project/MishaPay/Income/IncomeService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/src/main/java/com/project/MishaPay/MishaPayApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backEnd/MishaPay/src/test/java/com/project/MishaPay/MishaPayApplicationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/uiDesigner.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backEnd/test.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontEnd/finance_app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontEnd/finance_app/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontEnd/finance_app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontEnd/finance_app/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontEnd/test.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/MainPageHeader.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/PageObject.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/test-classes/BaseTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/test-classes/HeaderTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/HeaderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/HeaderTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/HeaderTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/HeaderTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.txt" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2O7A8RA2mrflLFzY5r7GwEbSks8" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration name="HeaderTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Misha_Be_Ziviles" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="HeaderTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.HeaderTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4483b66a-7834-4340-8394-743eb0c4195d" name="Changes" comment="" />
+      <created>1680901089608</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1680901089608</updated>
+    </task>
+    <servers />
+  </component>
+</project>
