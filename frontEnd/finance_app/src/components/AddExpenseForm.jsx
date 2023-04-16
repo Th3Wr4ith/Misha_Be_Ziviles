@@ -6,7 +6,11 @@ import {
   Grid,
   Paper,
   Typography,
+  Select,
+  InputLabel,
+  MenuItem,
   FormControl,
+  FormHelperText,
 } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -16,10 +20,12 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import "dayjs/locale/lt";
-import { incomeValidationSchema } from "../validations/validations";
+import { expenseValidationSchema } from "../validations/validations";
 
-function AddIncomeForm({ handleSubmit }) {
+function AddExpenseForm({ handleSubmit }) {
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const categories = [{ value: "Food" }, { value: "Gas" }, { value: "Taxes" }];
 
   const handleAccordionChange = () => {
     setIsExpanded((prevExpanded) => !prevExpanded);
@@ -32,16 +38,16 @@ function AddIncomeForm({ handleSubmit }) {
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <Typography>ADD INCOMES</Typography>
+        <Typography>ADD EXPENSES</Typography>
       </AccordionSummary>
       <AccordionDetails>
         <Paper sx={{ p: 2 }}>
           <Typography variant="h5" gutterBottom>
-            Add an income
+            Add an expense
           </Typography>
           <Formik
-            initialValues={{ name: "", amount: "", date: null }}
-            validationSchema={incomeValidationSchema}
+            initialValues={{ name: "", amount: "", date: null, category: "" }}
+            validationSchema={expenseValidationSchema}
             onSubmit={handleSubmit}
           >
             {({
@@ -86,7 +92,7 @@ function AddIncomeForm({ handleSubmit }) {
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
-                    <FormControl fullWidth>
+                    <FormControl fullWidth required>
                       <LocalizationProvider
                         dateAdapter={AdapterDayjs}
                         adapterLocale="lt"
@@ -98,12 +104,40 @@ function AddIncomeForm({ handleSubmit }) {
                           value={values.date}
                           onChange={(value) => setFieldValue("date", value)}
                           renderInput={(params) => <TextField {...params} />}
-                          onBlur={() => setFieldTouched("date", true)}
                           required
-                          error={touched.date}
-                          helperText={touched.date}
                         />
                       </LocalizationProvider>
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <FormControl fullWidth required>
+                      <InputLabel
+                        id="demo-simple-select-label"
+                        error={touched.category && Boolean(errors.category)}
+                        required
+                      >
+                        Category
+                      </InputLabel>
+                      <Field
+                        as={Select}
+                        name="category"
+                        labelId="demo-simple-select-label"
+                        id="category"
+                        label="Category"
+                        onChange={(event) => {
+                          setFieldValue("category", event.target.value);
+                        }}
+                        error={touched.category && Boolean(errors.category)}
+                      >
+                        {categories.map((category) => (
+                          <MenuItem key={category.value} value={category.value}>
+                            {category.value}
+                          </MenuItem>
+                        ))}
+                      </Field>
+                      <FormHelperText sx={{ color: "red" }}>
+                        {touched.category && errors.category}
+                      </FormHelperText>
                     </FormControl>
                   </Grid>
                   <Grid item xs={12}>
@@ -126,4 +160,4 @@ function AddIncomeForm({ handleSubmit }) {
   );
 }
 
-export default AddIncomeForm;
+export default AddExpenseForm;

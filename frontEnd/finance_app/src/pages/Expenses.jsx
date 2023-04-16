@@ -1,22 +1,22 @@
-import AddIncomeForm from "../components/AddIncomeForm";
-import IncomeTable from "../components/IncomeTable";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import AddExpenseForm from "../components/AddExpenseForm";
+import ExpenseTable from "../components/ExpenseTable";
 
-function Incomes() {
-  const [incomes, setIncomes] = useState({});
+function Expenses() {
+  const [expenses, setExpenses] = useState({});
 
   useEffect(() => {
-    fetchIncomes();
+    fetchExpenses();
   }, []);
 
   //TODO: move these calls to a servive
-  const fetchIncomes = () => {
+  const fetchExpenses = () => {
     axios
-      .get("http://localhost:8080/api/v1/incomes")
+      .get("http://localhost:8080/api/v1/expenses")
       .then((response) => {
         try {
-          setIncomes(response.data);
+          setExpenses(response.data);
         } catch (error) {
           console.error(error);
         }
@@ -24,21 +24,23 @@ function Incomes() {
       .catch((error) => console.error(error));
   };
 
-  console.log(incomes);
+  console.log(expenses);
 
   const handleSubmit = (values, { resetForm }) => {
-    const newIncome = {
+    console.log(values);
+    const newExpense = {
+      name: values.name,
       amount: parseFloat(values.amount),
       date: values.date.toISOString().substr(0, 10),
-      name: values.name,
+      category: values.category,
     };
 
     axios
-      .post("http://localhost:8080/api/v1/incomes", newIncome)
+      .post("http://localhost:8080/api/v1/expenses", newExpense)
       .then((response) => {
         if (response.status === 200) {
           resetForm();
-          fetchIncomes();
+          fetchExpenses();
         } else {
           console.log("Error adding income: unexpected status code");
         }
@@ -49,12 +51,12 @@ function Incomes() {
   };
 
   const handleDelete = (id) => {
-    const url = `http://localhost:8080/api/v1/incomes/${id}`;
+    const url = `http://localhost:8080/api/v1/expenses/${id}`;
     axios
       .delete(url)
       .then((response) => {
         console.log(response.data);
-        fetchIncomes();
+        fetchExpenses();
       })
       .catch((error) => {
         console.log(error);
@@ -63,10 +65,10 @@ function Incomes() {
 
   return (
     <>
-      <AddIncomeForm handleSubmit={handleSubmit} />
-      <IncomeTable income={incomes} handleDelete={handleDelete} />
+      <AddExpenseForm handleSubmit={handleSubmit} />
+      <ExpenseTable expenses={expenses} handleDelete={handleDelete} />
     </>
   );
 }
 
-export default Incomes;
+export default Expenses;

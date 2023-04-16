@@ -19,7 +19,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import HomeIcon from "@mui/icons-material/Home";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import { Button, ListItem, TextField, Tooltip } from "@mui/material";
+import { ListItem, TextField } from "@mui/material";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import { Link } from "react-router-dom";
 
@@ -158,7 +158,7 @@ export default function Header() {
             </IconButton>
 
             <IconButton
-              href="/"
+              href="/incomes"
               color="inherit"
               sx={{ borderRadius: 0, textAlign: "center" }}
             >
