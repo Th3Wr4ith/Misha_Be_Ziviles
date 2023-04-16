@@ -13,13 +13,16 @@ import {
   Paper,
   TextField,
   IconButton,
+  Typography,
 } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { Formik, Form, Field } from "formik";
+
 import dayjs from "dayjs";
 import "dayjs/locale/lt";
 
-function ExpensesTable({ expense, onUpdateExpenses }) {
+function ExpenseTable({ expenses, handleDelete }) {
   const [editingId, setEditingId] = useState(null);
 
   const handleEdit = (id) => {
@@ -35,47 +38,55 @@ function ExpensesTable({ expense, onUpdateExpenses }) {
   };
 
   const handleFieldChange = (id, field, value) => {
-    const updatedExpenses = {
-      ...expense,
+    const updatedincome = {
+      ...income,
       [id]: {
-        ...expense[id],
+        ...income[id],
         [field]: value,
       },
     };
-    onUpdateExpenses(updatedExpenses);
-  };
-
-  const handleDelete = (id) => {
-    const newExpenses = { ...expense };
-    delete newExpenses[id];
-    onUpdateExpenses(newExpenses);
+    onUpdateincome(updatedincome);
   };
 
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="Expenses table">
+      <Typography
+        sx={{
+          flex: "1 1 100%",
+          display: "flex",
+          justifyContent: "center",
+          padding: "10px",
+        }}
+        variant="h6"
+        id="tableTitle"
+        component="div"
+      >
+        Recent Expenses
+      </Typography>
+      <Table sx={{ minWidth: 650 }} aria-label="income table">
         <TableHead>
           <TableRow>
             <TableCell>Amount</TableCell>
             <TableCell>Date</TableCell>
             <TableCell>Name</TableCell>
+            <TableCell>Category</TableCell>
             <TableCell align="right">Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {Object.keys(expense).map((key) => (
+          {Object.keys(expenses).map((key) => (
             <TableRow key={key}>
               <TableCell component="th" scope="row">
                 {editingId === key ? (
                   <TextField
+                    as={TextField}
                     fullWidth
-                    value={expense[key].amount}
-                    onChange={(e) =>
-                      handleFieldChange(key, "amount", e.target.value)
-                    }
+                    name="value"
+                    value={expenses[key].amount}
+                    onChange={(value) => setFieldValue("", value)}
                   />
                 ) : (
-                  expense[key].amount
+                  expenses[key].amount
                 )}
               </TableCell>
               <TableCell>
@@ -84,42 +95,53 @@ function ExpensesTable({ expense, onUpdateExpenses }) {
                     dateAdapter={AdapterDayjs}
                     adapterLocale="lt"
                   >
-                    <DatePicker
+                    <TextField
+                      as={DatePicker}
+                      name="date"
                       fullWidth
-                      value={dayjs(expense[key].date, "YYYY-MM-DD")}
-                      onChange={(newValue) =>
-                        handleFieldChange(
-                          key,
-                          "date",
-                          newValue.toISOString().split("T")[0]
-                        )
-                      }
+                      value={dayjs(expenses[key].date, "YYYY-MM-DD")}
+                      onChange={(value) => setFieldValue([key], value)}
                       renderInput={(params) => <TextField {...params} />}
                     />
                   </LocalizationProvider>
                 ) : (
-                  expense[key].date
+                  expenses[key].date
                 )}
               </TableCell>
               <TableCell>
                 {editingId === key ? (
                   <TextField
+                    as={TextField}
                     fullWidth
-                    value={expense[key].name}
-                    onChange={(e) =>
-                      handleFieldChange(key, "name", e.target.value)
-                    }
+                    name="name"
+                    value={expenses[key].name}
+                    onChange={(value) => setFieldValue([key], value)}
                   />
                 ) : (
-                  expense[key].name
+                  expenses[key].name
                 )}
               </TableCell>
+              <TableCell component="th" scope="row">
+                {editingId === key ? (
+                  <TextField
+                    as={TextField}
+                    fullWidth
+                    name="category"
+                    value={expenses[key].category}
+                    onChange={(value) => setFieldValue("", value)}
+                  />
+                ) : (
+                  expenses[key].category
+                )}
+              </TableCell>
+
               <TableCell align="right">
                 {editingId === key ? (
                   <>
                     <IconButton
+                      type="submit"
                       aria-label="confirm"
-                      onClick={() => handleConfirm(key)}
+                      // onClick={() => handleConfirm(key)}
                     >
                       <CheckIcon />
                     </IconButton>
@@ -134,7 +156,7 @@ function ExpensesTable({ expense, onUpdateExpenses }) {
                 )}
                 <IconButton
                   aria-label="delete"
-                  onClick={() => handleDelete(key)}
+                  onClick={() => handleDelete(expenses[key].id)}
                 >
                   <DeleteIcon />
                 </IconButton>
@@ -146,4 +168,4 @@ function ExpensesTable({ expense, onUpdateExpenses }) {
     </TableContainer>
   );
 }
-export default ExpensesTable;
+export default ExpenseTable;
