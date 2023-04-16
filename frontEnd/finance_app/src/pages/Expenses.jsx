@@ -5,26 +5,34 @@ import ExpenseTable from "../components/ExpenseTable";
 
 function Expenses() {
   const [expenses, setExpenses] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     fetchExpenses();
+    return () => setIsMounted(false);
   }, []);
 
-  //TODO: move these calls to a servive
-  const fetchExpenses = () => {
-    axios
-      .get("http://localhost:8080/api/v1/expenses")
-      .then((response) => {
-        try {
-          setExpenses(response.data);
-        } catch (error) {
-          console.error(error);
-        }
-      })
-      .catch((error) => console.error(error));
+  //TODO: move these calls to a service
+  const fetchExpenses = async () => {
+    setIsLoading(true);
+    try {
+      const response = await axios.get("http://localhost:8080/api/v1/expenses");
+      if (isMounted && response.status === 200) {
+        setShowAlert(true);
+        setTimeout(() => {
+          setShowAlert(false);
+        }, 2000);
+      }
+      setExpenses(response.data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false); // set loading state back to false regardless of success or error
+    }
   };
-
-  console.log(expenses);
 
   const handleSubmit = (values, { resetForm }) => {
     console.log(values);
@@ -65,7 +73,11 @@ function Expenses() {
 
   return (
     <>
-      <AddExpenseForm handleSubmit={handleSubmit} />
+      <AddExpenseForm
+        handleSubmit={handleSubmit}
+        isLoading={isLoading}
+        success={showAlert}
+      />
       <ExpenseTable expenses={expenses} handleDelete={handleDelete} />
     </>
   );

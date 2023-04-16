@@ -17,11 +17,9 @@ import {
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { Formik, Form, Field } from "formik";
-
+import axios from "axios";
 import dayjs from "dayjs";
 import "dayjs/locale/lt";
-import { incomeValidationSchema } from "../validations/validations";
-
 function IncomeTable({ income, handleDelete }) {
   const [editingId, setEditingId] = useState(null);
 
@@ -29,23 +27,20 @@ function IncomeTable({ income, handleDelete }) {
     setEditingId(id);
   };
 
-  const handleConfirm = (id) => {
+  const handleConfirm = async (id, editedValue) => {
     setEditingId(null);
+    try {
+      await axios.put(
+        `http://localhost:8080/api/v1/incomes/${id}`,
+        editedValue
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleCancel = () => {
     setEditingId(null);
-  };
-
-  const handleFieldChange = (id, field, value) => {
-    const updatedincome = {
-      ...income,
-      [id]: {
-        ...income[id],
-        [field]: value,
-      },
-    };
-    onUpdateincome(updatedincome);
   };
 
   return (
@@ -53,8 +48,7 @@ function IncomeTable({ income, handleDelete }) {
       <Formik
         enableReinitialize
         initialValues={income}
-        validationSchema={incomeValidationSchema}
-        // onSubmit={onSubmit}
+        onSubmit={handleConfirm}
       >
         {({ values, errors, touched, setFieldValue }) => (
           <Form>
@@ -75,9 +69,8 @@ function IncomeTable({ income, handleDelete }) {
                         <Field
                           as={TextField}
                           fullWidth
-                          name={key}
+                          name={`${key}.amount`}
                           value={values[key].amount}
-                          onChange={(value) => setFieldValue("", value)}
                         />
                       ) : (
                         values[key].amount
@@ -91,10 +84,9 @@ function IncomeTable({ income, handleDelete }) {
                         >
                           <Field
                             as={DatePicker}
-                            name={key}
+                            name={`${key}.date`}
                             fullWidth
                             value={dayjs(values[key].date, "YYYY-MM-DD")}
-                            onChange={(value) => setFieldValue([key], value)}
                             renderInput={(params) => <TextField {...params} />}
                           />
                         </LocalizationProvider>
@@ -107,9 +99,8 @@ function IncomeTable({ income, handleDelete }) {
                         <Field
                           as={TextField}
                           fullWidth
-                          name={key}
+                          name={`${key}.name`}
                           value={values[key].name}
-                          onChange={(value) => setFieldValue([key], value)}
                         />
                       ) : (
                         values[key].name
@@ -120,9 +111,11 @@ function IncomeTable({ income, handleDelete }) {
                       {editingId === key ? (
                         <>
                           <IconButton
+                            aria-label="save"
                             type="submit"
-                            aria-label="confirm"
-                            // onClick={() => handleConfirm(key)}
+                            onClick={() =>
+                              handleConfirm(income[key].id, values[key])
+                            }
                           >
                             <CheckIcon />
                           </IconButton>
