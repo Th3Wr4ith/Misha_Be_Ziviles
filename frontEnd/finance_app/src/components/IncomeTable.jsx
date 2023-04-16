@@ -22,6 +22,7 @@ import dayjs from "dayjs";
 import "dayjs/locale/lt";
 function IncomeTable({ income, handleDelete }) {
   const [editingId, setEditingId] = useState(null);
+  const [confirmDeleteIndex, setConfirmDeleteIndex] = useState(-1);
 
   const handleEdit = (id) => {
     setEditingId(id);
@@ -41,6 +42,11 @@ function IncomeTable({ income, handleDelete }) {
 
   const handleCancel = () => {
     setEditingId(null);
+  };
+
+  const handleDeleteAndSetState = (id) => {
+    handleDelete(id);
+    setConfirmDeleteIndex(-1);
   };
 
   return (
@@ -134,12 +140,31 @@ function IncomeTable({ income, handleDelete }) {
                           <EditIcon />
                         </IconButton>
                       )}
-                      <IconButton
-                        aria-label="delete"
-                        onClick={() => handleDelete(income[key].id)}
-                      >
-                        <DeleteIcon />
-                      </IconButton>
+                      {confirmDeleteIndex === parseInt(key) ? (
+                        <>
+                          <IconButton
+                            aria-label="delete"
+                            onClick={() =>
+                              handleDeleteAndSetState(income[key].id)
+                            }
+                          >
+                            <CheckIcon />
+                          </IconButton>
+                          <IconButton
+                            aria-label="cancel"
+                            onClick={() => setConfirmDeleteIndex(-1)}
+                          >
+                            <CloseIcon />
+                          </IconButton>
+                        </>
+                      ) : (
+                        <IconButton
+                          aria-label="delete"
+                          onClick={() => setConfirmDeleteIndex(parseInt(key))}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      )}
                     </TableCell>
                   </TableRow>
                 ))}

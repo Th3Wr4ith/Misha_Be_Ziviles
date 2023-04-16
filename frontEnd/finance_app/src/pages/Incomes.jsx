@@ -34,41 +34,52 @@ function Incomes() {
     }
   };
 
+  const fetchIncomesOnDelete = async () => {
+    setIsLoading(true);
+    try {
+      const response = await axios.get("http://localhost:8080/api/v1/incomes");
+      setIncomes(response.data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   console.log(incomes);
 
-  const handleSubmit = (values, { resetForm }) => {
+  const handleSubmit = async (values, { resetForm }) => {
     const newIncome = {
       amount: parseFloat(values.amount),
       date: values.date.toISOString().substr(0, 10),
       name: values.name,
     };
 
-    axios
-      .post("http://localhost:8080/api/v1/incomes", newIncome)
-      .then((response) => {
-        if (response.status === 200) {
-          resetForm();
-          fetchIncomes();
-        } else {
-          console.log("Error adding income: unexpected status code");
-        }
-      })
-      .catch((error) => {
-        console.log("Error adding income:", error);
-      });
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/v1/incomes",
+        newIncome
+      );
+      if (response.status === 200) {
+        resetForm();
+        fetchIncomes();
+      } else {
+        console.log("Error adding income: unexpected status code");
+      }
+    } catch (error) {
+      console.log("Error adding income:", error);
+    }
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     const url = `http://localhost:8080/api/v1/incomes/${id}`;
-    axios
-      .delete(url)
-      .then((response) => {
-        console.log(response.data);
-        fetchIncomes();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    try {
+      const response = await axios.delete(url);
+      console.log(response.data);
+      fetchIncomesOnDelete();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
