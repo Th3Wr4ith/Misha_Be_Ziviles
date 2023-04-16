@@ -5,23 +5,33 @@ import axios from "axios";
 
 function Incomes() {
   const [incomes, setIncomes] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     fetchIncomes();
+    return () => setIsMounted(false);
   }, []);
 
-  //TODO: move these calls to a servive
-  const fetchIncomes = () => {
-    axios
-      .get("http://localhost:8080/api/v1/incomes")
-      .then((response) => {
-        try {
-          setIncomes(response.data);
-        } catch (error) {
-          console.error(error);
-        }
-      })
-      .catch((error) => console.error(error));
+  //TODO: move these calls to a service
+  const fetchIncomes = async () => {
+    setIsLoading(true);
+    try {
+      const response = await axios.get("http://localhost:8080/api/v1/incomes");
+      if (isMounted && response.status === 200) {
+        setShowAlert(true);
+        setTimeout(() => {
+          setShowAlert(false);
+        }, 2000);
+      }
+      setIncomes(response.data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   console.log(incomes);
@@ -63,7 +73,11 @@ function Incomes() {
 
   return (
     <>
-      <AddIncomeForm handleSubmit={handleSubmit} />
+      <AddIncomeForm
+        handleSubmit={handleSubmit}
+        isLoading={isLoading}
+        success={showAlert}
+      />
       <IncomeTable income={incomes} handleDelete={handleDelete} />
     </>
   );

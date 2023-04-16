@@ -11,7 +11,9 @@ import {
   MenuItem,
   FormControl,
   FormHelperText,
+  Alert,
 } from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import Accordion from "@mui/material/Accordion";
@@ -19,10 +21,11 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import SaveIcon from "@mui/icons-material/Save";
 import "dayjs/locale/lt";
 import { expenseValidationSchema } from "../validations/validations";
 
-function AddExpenseForm({ handleSubmit }) {
+function AddExpenseForm({ handleSubmit, isLoading, success }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const categories = [{ value: "Food" }, { value: "Gas" }, { value: "Taxes" }];
@@ -141,14 +144,22 @@ function AddExpenseForm({ handleSubmit }) {
                     </FormControl>
                   </Grid>
                   <Grid item xs={12}>
-                    <Button
+                    <LoadingButton
+                      loading={isLoading}
+                      loadingPosition="start"
                       type="submit"
                       variant="contained"
+                      startIcon={<SaveIcon />}
                       color="primary"
                       disabled={!dirty || !isValid}
                     >
                       Add
-                    </Button>
+                    </LoadingButton>
+                  </Grid>
+                  <Grid item xs={3}>
+                    {success && (
+                      <Alert severity="success">Added successfully</Alert>
+                    )}
                   </Grid>
                 </Grid>
               </Form>
