@@ -20,6 +20,7 @@ import { Formik, Form, Field } from "formik";
 import axios from "axios";
 import dayjs from "dayjs";
 import "dayjs/locale/lt";
+import { incomeValidationSchema } from "../validations/validations";
 function IncomeTable({ income, handleDelete }) {
   const [editingId, setEditingId] = useState(null);
   const [confirmDeleteIndex, setConfirmDeleteIndex] = useState(-1);
@@ -55,6 +56,7 @@ function IncomeTable({ income, handleDelete }) {
         enableReinitialize
         initialValues={income}
         onSubmit={handleConfirm}
+        validationSchema={incomeValidationSchema}
       >
         {({ values, errors, touched, setFieldValue }) => (
           <Form>
@@ -77,6 +79,8 @@ function IncomeTable({ income, handleDelete }) {
                           fullWidth
                           name={`${key}.amount`}
                           value={values[key].amount}
+                          error={touched.amount && Boolean(errors.amount)}
+                          helperText={touched.amount && errors.amount}
                         />
                       ) : (
                         values[key].amount
@@ -93,6 +97,12 @@ function IncomeTable({ income, handleDelete }) {
                             name={`${key}.date`}
                             fullWidth
                             value={dayjs(values[key].date, "YYYY-MM-DD")}
+                            onChange={(newValue) =>
+                              setFieldValue(
+                                `${key}.date`,
+                                dayjs(newValue).format("YYYY-MM-DD")
+                              )
+                            }
                             renderInput={(params) => <TextField {...params} />}
                           />
                         </LocalizationProvider>

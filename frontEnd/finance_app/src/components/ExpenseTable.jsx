@@ -23,12 +23,31 @@ import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { Formik, Form, Field } from "formik";
 import axios from "axios";
+import * as Yup from "yup";
 
 import dayjs from "dayjs";
 import "dayjs/locale/lt";
 import { expenseValidationSchema } from "../validations/validations";
 
 function expensesTable({ expenses, handleDelete }) {
+  // const expenseValidationSchema = (expenses) => {
+  //   const fields = {};
+  //   Object.keys(expenses).map((key) => {
+  //     fields[`${key}.amount`] = Yup.string()
+  //       .matches(
+  //         /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
+  //         "Phone number is not valid"
+  //       )
+  //       .typeError("Amount must be a number")
+  //       .required("Amount is required")
+  //       .nullable(false);
+  //     fields[`${key}.date`] = Yup.date().required("Date is required");
+  //     fields[`${key}.name`] = Yup.string().required("Name is required");
+  //     fields[`${key}.category`] = Yup.string().required("Category is required");
+  //   });
+  //   return Yup.object().shape(fields);
+  // };
+
   const categories = [{ value: "Food" }, { value: "Gas" }, { value: "Taxes" }];
   const [editingId, setEditingId] = useState(null);
   const [confirmDeleteIndex, setConfirmDeleteIndex] = useState(-1);
@@ -63,8 +82,9 @@ function expensesTable({ expenses, handleDelete }) {
       <Formik
         enableReinitialize
         initialValues={expenses}
-        validationSchema={expenseValidationSchema}
         onSubmit={handleConfirm}
+        //need to make a validation for example that it will validate where the field name is 0.name, because it maps the values and gives the name depending on the key
+        validationSchema={expenseValidationSchema}
       >
         {({ values, errors, touched, setFieldValue }) => (
           <Form>
@@ -83,12 +103,26 @@ function expensesTable({ expenses, handleDelete }) {
                   <TableRow key={key}>
                     <TableCell component="th" scope="row">
                       {editingId === key ? (
-                        <Field
-                          as={TextField}
-                          fullWidth
-                          name={`${key}.amount`}
-                          value={values[key].amount}
-                        />
+                        <>
+                          <Field
+                            as={TextField}
+                            fullWidth
+                            name={`${key}.amount`}
+                            value={values[key].amount}
+                            onChange={(e) =>
+                              setFieldValue(`${key}.amount`, e.target.value)
+                            }
+                            //this returns always false.
+                            error={
+                              touched[`${key}.amount`] &&
+                              Boolean(errors[`${key}.amount`])
+                            }
+                            helperText={
+                              touched[`${key}.amount`] &&
+                              errors[`${key}.amount`]
+                            }
+                          />
+                        </>
                       ) : (
                         values[key].amount
                       )}
@@ -103,8 +137,15 @@ function expensesTable({ expenses, handleDelete }) {
                             as={DatePicker}
                             name={`${key}.date`}
                             fullWidth
+                            format="YYYY-MM-DD"
                             value={dayjs(values[key].date, "YYYY-MM-DD")}
                             renderInput={(params) => <TextField {...params} />}
+                            onChange={(newValue) =>
+                              setFieldValue(
+                                `${key}.date`,
+                                dayjs(newValue).format("YYYY-MM-DD")
+                              )
+                            }
                           />
                         </LocalizationProvider>
                       ) : (
@@ -118,6 +159,16 @@ function expensesTable({ expenses, handleDelete }) {
                           fullWidth
                           name={`${key}.name`}
                           value={values[key].name}
+                          error={
+                            touched[`${key}.name`] &&
+                            Boolean(errors[`${key}.name`])
+                          }
+                          helperText={
+                            touched[`${key}.name`] && errors[`${key}.name`]
+                          }
+                          onChange={(e) =>
+                            setFieldValue(`${key}.name`, e.target.value)
+                          }
                         />
                       ) : (
                         values[key].name
@@ -174,7 +225,6 @@ function expensesTable({ expenses, handleDelete }) {
                         <>
                           <IconButton
                             aria-label="save"
-                            type="submit"
                             onClick={() =>
                               handleConfirm(expenses[key].id, values[key])
                             }

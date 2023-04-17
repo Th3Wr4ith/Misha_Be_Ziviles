@@ -2,7 +2,7 @@ import * as Yup from "yup";
 
 const incomeValidationSchema = Yup.object().shape({
   amount: Yup.string()
-    .matches(/^[0-9,.\b]{0,7}(?:\.\d{0,2})?$/, "Invalid amount")
+    .matches(/^\d{0,7}(?:\.\d{1,2})?$/, "Invalid amount")
     .test(
       "positive",
       "Amount must be positive",
@@ -20,7 +20,7 @@ const incomeValidationSchema = Yup.object().shape({
 
 const expenseValidationSchema = Yup.object().shape({
   amount: Yup.string()
-    .matches(/^[0-9,.\b]{0,7}(?:\.\d{0,2})?$/, "Invalid amount")
+    .matches(/^\d{0,7}(?:\.\d{1,2})?$/, "Invalid amount")
     .test(
       "positive",
       "Amount must be positive",
