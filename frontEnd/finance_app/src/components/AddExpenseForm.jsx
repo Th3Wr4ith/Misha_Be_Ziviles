@@ -81,12 +81,13 @@ function AddExpenseForm({ handleSubmit, isLoading, success }) {
                       name="amount"
                       label="Amount"
                       type="number"
+                      InputLabelProps={{ shrink: true }}
                       fullWidth
                       required
                       error={touched.amount && Boolean(errors.amount)}
                       helperText={touched.amount && errors.amount}
                       onChange={(e) => {
-                        const regex = /^[0-9,.\b]{0,7}(?:\.\d{0,2})?$/;
+                        const regex = /^\d{0,7}(?:\.\d{1,2})?$/;
                         const isValid = regex.test(e.target.value);
                         if (isValid) {
                           setFieldValue("amount", e.target.value);
