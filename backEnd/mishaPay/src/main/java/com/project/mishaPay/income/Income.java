@@ -8,7 +8,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 @Entity
 @Table(name = "incomes")
 public class Income {
@@ -26,59 +34,4 @@ public class Income {
 
 	@Column(name = "date")
 	private LocalDate date;
-
-	public Income() {
-	}
-
-	public Income(Long id, BigDecimal amount, String name, LocalDate date) {
-
-		this.id = id;
-		this.amount = amount;
-		this.name = name;
-		this.date = date;
-	}
-
-	public Income(BigDecimal amount, String name, LocalDate date) {
-
-		this.amount = amount;
-		this.name = name;
-		this.date = date;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public BigDecimal getAmount() {
-		return amount;
-	}
-
-	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public LocalDate getDate() {
-		return date;
-	}
-
-	public void setDate(LocalDate date) {
-		this.date = date;
-	}
-
-	@Override
-	public String toString() {
-		return "Incomes [id=" + id + ", amount=" + amount + ", name=" + name + ", date=" + date + "]";
-	}
 }
