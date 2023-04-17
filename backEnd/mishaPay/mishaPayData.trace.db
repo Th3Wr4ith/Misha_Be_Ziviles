@@ -1,0 +1,27 @@
+2023-04-17 14:30:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "Naujas"; SQL statement:
+alter table if exists categories add constraint FKma6ksfqxggvu8hcelkmmwkuq5 foreign key (category) references expenses [22018-214]
+2023-04-17 14:31:14 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "Transportas"; SQL statement:
+select c1_0.category,c1_0.id from categories c1_0 where c1_0.category=? [22018-214]
+2023-04-17 14:31:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "Transportas"; SQL statement:
+select c1_0.category,c1_0.id from categories c1_0 where c1_0.category=? [22018-214]
+2023-04-17 14:31:40 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "Transportas"; SQL statement:
+select c1_0.category,c1_0.id from categories c1_0 where c1_0.category=? [22018-214]
+2023-04-17 14:31:57 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "Naujas"; SQL statement:
+alter table if exists categories add constraint FKma6ksfqxggvu8hcelkmmwkuq5 foreign key (category) references expenses [22018-214]
+2023-04-17 14:32:14 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "Transportas"; SQL statement:
+select c1_0.category,c1_0.id from categories c1_0 where c1_0.category=? [22018-214]
+2023-04-17 14:35:26 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "Naujas"; SQL statement:
+alter table if exists categories add constraint FKma6ksfqxggvu8hcelkmmwkuq5 foreign key (category) references expenses [22018-214]
+2023-04-17 14:38:22 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "Naujas"; SQL statement:
+alter table if exists categories add constraint FKma6ksfqxggvu8hcelkmmwkuq5 foreign key (category) references expenses [22018-214]
+2023-04-17 14:38:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "Transportas"; SQL statement:
+select c1_0.category,c1_0.id from categories c1_0 where c1_0.category=? [22018-214]
