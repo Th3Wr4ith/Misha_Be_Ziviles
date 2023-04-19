@@ -42,8 +42,12 @@ public class Expense {
 	private LocalDate date;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "categoryId", referencedColumnName = "id")
+	@JoinColumn(name = "category_id", referencedColumnName = "id")
 	@Getter
 	private Category category;
 
+	public void assignCategory(Category category) {
+		this.category = category;
+
+	}
 }
