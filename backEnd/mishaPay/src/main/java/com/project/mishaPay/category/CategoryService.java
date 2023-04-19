@@ -1,8 +1,11 @@
 package com.project.mishaPay.category;
+
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
 import com.project.mishaPay.exeption.ResourceNotFoundException;
 
 @Service
@@ -16,12 +19,7 @@ public class CategoryService {
 		return categoriesRepository.findAll();
 	}
 
-	public Category createCategories(Category categories) {
-
-		return categoriesRepository.save(categories);
-	}
-
-	public Category getCategoryById(Long id) throws ResourceNotFoundException {
+	public Category getCategoriesById(Long id) throws ResourceNotFoundException {
 
 		Category categoryById = categoriesRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Category does not exist with id:" + id));
@@ -29,25 +27,27 @@ public class CategoryService {
 		return categoryById;
 	}
 
-	public ResponseEntity<Category> updateCategory(Long id, Category categoryDetails) {
+	public Category createCategories(Category categories) {
 
-		Category category = categoriesRepository.findById(id)
+		return categoriesRepository.save(categories);
+	}
+
+	public ResponseEntity<Category> updateCategories(Long id, Category categoryDetails) {
+
+		Category categories = categoriesRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Category does not exist with id: " + id));
 
-		category.setCategory(categoryDetails.getCategory());
+		categories.setName(categoryDetails.getName());
 
+		Category updatedCategories = categoriesRepository.save(categories);
 
-		Category updatedCategory = categoriesRepository.save(category);
-
-		return ResponseEntity.ok(updatedCategory);
+		return ResponseEntity.ok(updatedCategories);
 	}
-	
-	public void deleteCategory(Long id) {
+
+	public void deleteCategories(Long id) {
 
 		categoriesRepository.deleteById(id);
 
 	}
-	
-	
-	
+
 }

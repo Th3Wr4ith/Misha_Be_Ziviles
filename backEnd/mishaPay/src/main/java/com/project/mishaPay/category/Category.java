@@ -30,10 +30,11 @@ public class Category {
 	private Long id;
 
 	@Column(name = "category")
-	private String category;
+	private String name;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "expenseCategory")
+	@OneToMany(mappedBy = "category")
 	@Getter
 	private List<Expense> expenses;
+
 }
