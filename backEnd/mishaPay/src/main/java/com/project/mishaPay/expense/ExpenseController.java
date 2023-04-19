@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.mishaPay.category.Category;
 import com.project.mishaPay.category.CategoryService;
 import com.project.mishaPay.dto.ExpenseDTO;
 
@@ -83,15 +84,17 @@ public class ExpenseController {
 		return ResponseEntity.ok().body(expensesResponse);
 	}
 
-//	@PutMapping("/{expensesId}/categories/{categoriesId}")
-//	Expense expenseCategory(@PathVariable Long expensesId, @PathVariable Long categoriesId) {
-//
-//		Expense expense = expensesService.getExpensesById(expensesId);
-//
-//		com.project.mishaPay.category.Category category = categoriesService.getCategoriesById(categoriesId);
-//
-//		return expensesService.updateExpenses(expensesId, expense);
-//	}
+	@PutMapping("/{expensesId}/categories/{categoriesId}")
+	ResponseEntity<Expense> expensesCategory(@PathVariable Long expensesId, @PathVariable Long categoriesId) {
+
+		Expense expenses = expensesService.getExpensesById(expensesId);
+
+		Category category = categoriesService.getCategoriesById(categoriesId);
+
+		expenses.assignCategory(category);
+
+		return expensesService.updateExpenses(categoriesId, expenses);
+	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteExpenses(@PathVariable Long id) {
