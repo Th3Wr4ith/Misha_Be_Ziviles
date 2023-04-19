@@ -38,15 +38,12 @@ public class Expense {
 	@Column(name = "name")
 	private String name;
 
-	@Column(name = "category")
-	private String category;
-
 	@Column(name = "date")
 	private LocalDate date;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "categoryId", referencedColumnName = "id")
 	@Getter
-	private Category expenseCategory;
+	private Category category;
 
 }

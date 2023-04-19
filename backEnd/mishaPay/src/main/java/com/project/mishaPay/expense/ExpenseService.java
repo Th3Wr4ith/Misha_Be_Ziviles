@@ -39,7 +39,6 @@ public class ExpenseService {
 
 		expenses.setAmount(expensesDetails.getAmount());
 		expenses.setName(expensesDetails.getName());
-		expenses.setCategory(expensesDetails.getCategory());
 		expenses.setDate(expensesDetails.getDate());
 
 		Expense updatedExpenses = expensesRepository.save(expenses);

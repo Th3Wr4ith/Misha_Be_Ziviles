@@ -1,7 +1,9 @@
 package com.project.mishaPay.income;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,42 +17,65 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.mishaPay.dto.IncomeDTO;
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping(path = "/api/v1/incomes")
 
 public class IncomeController {
 
-	private final IncomeService incomesService;
+	@Autowired
+	public ModelMapper modelMapper;
 
 	@Autowired
+	private final IncomeService incomesService;
+
 	public IncomeController(IncomeService incomesService) {
 
 		this.incomesService = incomesService;
 	}
 
 	@GetMapping
-	public List<Income> getIncomes() {
+	public List<IncomeDTO> getIncomes() {
 
-		return incomesService.getIncomes();
+		return incomesService.getIncomes().stream().map(incomes -> modelMapper.map(incomes, IncomeDTO.class))
+				.collect(Collectors.toList());
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Income> getIncomesById(@PathVariable Long id) {
+	public ResponseEntity<IncomeDTO> getIncomesById(@PathVariable Long id) {
 
-		return ResponseEntity.ok().body(incomesService.getIncomesById(id));
+		Income incomes = incomesService.getIncomesById(id);
+
+		IncomeDTO incomesResponse = modelMapper.map(incomes, IncomeDTO.class);
+
+		return ResponseEntity.ok().body(incomesResponse);
 	}
 
 	@PostMapping
-	public Income createIncomes(@RequestBody Income incomes) {
+	public ResponseEntity<IncomeDTO> createIncomes(@RequestBody IncomeDTO incomesDTO) {
 
-		return incomesService.createIncomes(incomes);
+		Income incomesRequest = modelMapper.map(incomesDTO, Income.class);
+
+		Income incomes = incomesService.createIncomes(incomesRequest);
+
+		IncomeDTO incomesResponse = modelMapper.map(incomes, IncomeDTO.class);
+
+		return new ResponseEntity<IncomeDTO>(incomesResponse, HttpStatus.CREATED);
+
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Income> updateIncomes(@PathVariable Long id, @RequestBody Income updatedIncomes) {
+	public ResponseEntity<IncomeDTO> updateIncomes(@PathVariable Long id, @RequestBody IncomeDTO updatedIncomesDTO) {
 
-		return incomesService.updateIncomes(id, updatedIncomes);
+		Income incomesRequest = modelMapper.map(updatedIncomesDTO, Income.class);
+
+		ResponseEntity<Income> updatedIncomes = incomesService.updateIncomes(id, incomesRequest);
+
+		IncomeDTO incomesResponse = modelMapper.map(updatedIncomes, IncomeDTO.class);
+
+		return ResponseEntity.ok().body(incomesResponse);
 
 	}
 
