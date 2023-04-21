@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.mishaPay.category.Category;
-import com.project.mishaPay.category.CategoryService;
 import com.project.mishaPay.dto.ExpenseDTO;
 
 @CrossOrigin("*")
@@ -31,77 +29,56 @@ public class ExpenseController {
 	public ModelMapper modelMapper;
 
 	@Autowired
-	private ExpenseService expensesService;
+	private ExpenseService expenseService;
 
-	@Autowired
-	private CategoryService categoriesService;
+	public ExpenseController(ExpenseService expenseService) {
 
-	public ExpenseController(ExpenseService expensesService) {
-
-		this.expensesService = expensesService;
+		this.expenseService = expenseService;
 	}
 
 	@GetMapping
 	public List<ExpenseDTO> getExpenses() {
 
-		return expensesService.getExpenses().stream().map(expenses -> modelMapper.map(expenses, ExpenseDTO.class))
+		return expenseService.getExpenses().stream().map(expense -> modelMapper.map(expense, ExpenseDTO.class))
 				.collect(Collectors.toList());
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<ExpenseDTO> getExpensesById(@PathVariable Long id) {
 
-		Expense expenses = expensesService.getExpensesById(id);
+		Expense expense = expenseService.getExpensesById(id);
 
-		ExpenseDTO expensesResponse = modelMapper.map(expenses, ExpenseDTO.class);
+		ExpenseDTO expenseResponse = modelMapper.map(expense, ExpenseDTO.class);
 
-		return ResponseEntity.ok().body(expensesResponse);
+		return ResponseEntity.ok().body(expenseResponse);
 	}
 
 	@PostMapping
-	public ResponseEntity<ExpenseDTO> createExpenses(@RequestBody ExpenseDTO expensesDTO) {
+	public ResponseEntity<ExpenseDTO> createExpenses(@RequestBody ExpenseDTO expenseDTO) {
 
-		Expense expensesRequest = modelMapper.map(expensesDTO, Expense.class);
+		Expense expense = expenseService.createExpenses(expenseDTO);
 
-		Expense expenses = expensesService.createExpenses(expensesRequest);
+		ExpenseDTO expenseResponse = modelMapper.map(expense, ExpenseDTO.class);
 
-		ExpenseDTO expensesResponse = modelMapper.map(expenses, ExpenseDTO.class);
+		expenseResponse.setName(expense.getCategory().getName());
 
-		return new ResponseEntity<ExpenseDTO>(expensesResponse, HttpStatus.CREATED);
+		return new ResponseEntity<ExpenseDTO>(expenseResponse, HttpStatus.CREATED);
 
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<ExpenseDTO> updateExpenses(@PathVariable Long id,
-			@RequestBody ExpenseDTO updatedExpensesDTO) {
+	public ResponseEntity<Expense> updateExpenses(@PathVariable Long id, @RequestBody ExpenseDTO updatedExpenseDTO) {
 
-		Expense expensesRequest = modelMapper.map(updatedExpensesDTO, Expense.class);
+		return expenseService.updateExpenses(id, updatedExpenseDTO);
 
-		ResponseEntity<Expense> updatedExpenses = expensesService.updateExpenses(id, expensesRequest);
-
-		ExpenseDTO expensesResponse = modelMapper.map(updatedExpenses, ExpenseDTO.class);
-
-		return ResponseEntity.ok().body(expensesResponse);
-	}
-
-	@PutMapping("/{expensesId}/categories/{categoriesId}")
-	ResponseEntity<Expense> expensesCategory(@PathVariable Long expensesId, @PathVariable Long categoriesId) {
-
-		Expense expenses = expensesService.getExpensesById(expensesId);
-
-		Category category = categoriesService.getCategoriesById(categoriesId);
-
-		expenses.assignCategory(category);
-
-		return expensesService.updateExpenses(categoriesId, expenses);
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteExpenses(@PathVariable Long id) {
 
-		expensesService.deleteExpenses(id);
+		expenseService.deleteExpenses(id);
 
-		return new ResponseEntity<>("Expenses successfully deleted!", HttpStatus.OK);
+		return new ResponseEntity<>("Expense successfully deleted!", HttpStatus.OK);
 
 	}
 }
