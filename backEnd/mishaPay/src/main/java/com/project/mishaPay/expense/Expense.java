@@ -15,7 +15,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -35,7 +34,7 @@ public class Expense {
 	@Column(name = "amount")
 	private BigDecimal amount;
 
-	@Column(name = "name")
+	@Column(name = "expenseName")
 	private String name;
 
 	@Column(name = "date")
@@ -43,11 +42,11 @@ public class Expense {
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "category_id", referencedColumnName = "id")
-	@Getter
 	private Category category;
 
 	public void assignCategory(Category category) {
 		this.category = category;
 
 	}
+
 }

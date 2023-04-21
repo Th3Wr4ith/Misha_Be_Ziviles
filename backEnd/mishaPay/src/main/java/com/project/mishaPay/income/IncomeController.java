@@ -29,61 +29,61 @@ public class IncomeController {
 	public ModelMapper modelMapper;
 
 	@Autowired
-	private final IncomeService incomesService;
+	private final IncomeService incomeService;
 
-	public IncomeController(IncomeService incomesService) {
+	public IncomeController(IncomeService incomeService) {
 
-		this.incomesService = incomesService;
+		this.incomeService = incomeService;
 	}
 
 	@GetMapping
 	public List<IncomeDTO> getIncomes() {
 
-		return incomesService.getIncomes().stream().map(incomes -> modelMapper.map(incomes, IncomeDTO.class))
+		return incomeService.getIncomes().stream().map(income -> modelMapper.map(income, IncomeDTO.class))
 				.collect(Collectors.toList());
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<IncomeDTO> getIncomesById(@PathVariable Long id) {
 
-		Income incomes = incomesService.getIncomesById(id);
+		Income income = incomeService.getIncomesById(id);
 
-		IncomeDTO incomesResponse = modelMapper.map(incomes, IncomeDTO.class);
+		IncomeDTO incomeResponse = modelMapper.map(income, IncomeDTO.class);
 
-		return ResponseEntity.ok().body(incomesResponse);
+		return ResponseEntity.ok().body(incomeResponse);
 	}
 
 	@PostMapping
-	public ResponseEntity<IncomeDTO> createIncomes(@RequestBody IncomeDTO incomesDTO) {
+	public ResponseEntity<IncomeDTO> createIncomes(@RequestBody IncomeDTO incomeDTO) {
 
-		Income incomesRequest = modelMapper.map(incomesDTO, Income.class);
+		Income incomeRequest = modelMapper.map(incomeDTO, Income.class);
 
-		Income incomes = incomesService.createIncomes(incomesRequest);
+		Income income = incomeService.createIncomes(incomeRequest);
 
-		IncomeDTO incomesResponse = modelMapper.map(incomes, IncomeDTO.class);
+		IncomeDTO incomeResponse = modelMapper.map(income, IncomeDTO.class);
 
-		return new ResponseEntity<IncomeDTO>(incomesResponse, HttpStatus.CREATED);
+		return new ResponseEntity<IncomeDTO>(incomeResponse, HttpStatus.CREATED);
 
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<IncomeDTO> updateIncomes(@PathVariable Long id, @RequestBody IncomeDTO updatedIncomesDTO) {
+	public ResponseEntity<IncomeDTO> updateIncomes(@PathVariable Long id, @RequestBody IncomeDTO updatedIncomeDTO) {
 
-		Income incomesRequest = modelMapper.map(updatedIncomesDTO, Income.class);
+		Income incomeRequest = modelMapper.map(updatedIncomeDTO, Income.class);
 
-		ResponseEntity<Income> updatedIncomes = incomesService.updateIncomes(id, incomesRequest);
+		ResponseEntity<Income> updatedIncome = incomeService.updateIncomes(id, incomeRequest);
 
-		IncomeDTO incomesResponse = modelMapper.map(updatedIncomes, IncomeDTO.class);
+		IncomeDTO incomeResponse = modelMapper.map(updatedIncome, IncomeDTO.class);
 
-		return ResponseEntity.ok().body(incomesResponse);
+		return ResponseEntity.ok().body(incomeResponse);
 
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteIncomes(@PathVariable Long id) {
 
-		incomesService.deleteIncomes(id);
+		incomeService.deleteIncomes(id);
 
-		return new ResponseEntity<>("Incomes successfully deleted!", HttpStatus.OK);
+		return new ResponseEntity<>("Income successfully deleted!", HttpStatus.OK);
 	}
 }

@@ -12,43 +12,43 @@ import com.project.mishaPay.exeption.ResourceNotFoundException;
 public class IncomeService {
 
 	@Autowired
-	private IncomeRepository incomesRepository;
+	private IncomeRepository incomeRepository;
 
 	public List<Income> getIncomes() {
 
-		return incomesRepository.findAll();
+		return incomeRepository.findAll();
 	}
 
 	public Income getIncomesById(Long id) throws ResourceNotFoundException {
 
-		Income incomesById = incomesRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Incomes does not exist with id:" + id));
+		Income incomeById = incomeRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Income does not exist with id:" + id));
 
-		return incomesById;
+		return incomeById;
 	}
 
-	public Income createIncomes(Income incomes) {
+	public Income createIncomes(Income income) {
 
-		return incomesRepository.save(incomes);
+		return incomeRepository.save(income);
 	}
 
-	public ResponseEntity<Income> updateIncomes(Long id, Income incomesDetails) {
+	public ResponseEntity<Income> updateIncomes(Long id, Income incomeDetails) {
 
-		Income incomes = incomesRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Incomes does not exist with id: " + id));
+		Income income = incomeRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Income does not exist with id: " + id));
 
-		incomes.setAmount(incomesDetails.getAmount());
-		incomes.setName(incomesDetails.getName());
-		incomes.setDate(incomesDetails.getDate());
+		income.setAmount(incomeDetails.getAmount());
+		income.setName(incomeDetails.getName());
+		income.setDate(incomeDetails.getDate());
 
-		Income updatedIncomes = incomesRepository.save(incomes);
+		Income updatedIncome = incomeRepository.save(income);
 
-		return ResponseEntity.ok(updatedIncomes);
+		return ResponseEntity.ok(updatedIncome);
 	}
 
 	public void deleteIncomes(Long id) {
 
-		incomesRepository.deleteById(id);
+		incomeRepository.deleteById(id);
 
 	}
 }

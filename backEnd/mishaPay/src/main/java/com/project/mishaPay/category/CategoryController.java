@@ -29,60 +29,60 @@ public class CategoryController {
 	public ModelMapper modelMapper;
 
 	@Autowired
-	private final CategoryService categoriesService;
+	private final CategoryService categoryService;
 
-	public CategoryController(CategoryService categoriesService) {
+	public CategoryController(CategoryService categoryService) {
 
-		this.categoriesService = categoriesService;
+		this.categoryService = categoryService;
 	}
 
 	@GetMapping
 	public List<CategoryDTO> getCategories() {
 
-		return categoriesService.getCategories().stream()
-				.map(categories -> modelMapper.map(categories, CategoryDTO.class)).collect(Collectors.toList());
+		return categoryService.getCategories().stream().map(category -> modelMapper.map(category, CategoryDTO.class))
+				.collect(Collectors.toList());
 	}
 
 	@GetMapping("{id}")
 	public ResponseEntity<CategoryDTO> getCategoriesById(@PathVariable Long id) {
 
-		Category categories = categoriesService.getCategoriesById(id);
+		Category category = categoryService.getCategoriesById(id);
 
-		CategoryDTO categoriesResponse = modelMapper.map(categories, CategoryDTO.class);
+		CategoryDTO categoryResponse = modelMapper.map(category, CategoryDTO.class);
 
-		return ResponseEntity.ok().body(categoriesResponse);
+		return ResponseEntity.ok().body(categoryResponse);
 	}
 
 	@PostMapping
-	public ResponseEntity<CategoryDTO> createCategories(@RequestBody Category categoriesDTO) {
+	public ResponseEntity<CategoryDTO> createCategories(@RequestBody Category categoryDTO) {
 
-		Category categoriesRequest = modelMapper.map(categoriesDTO, Category.class);
+		Category categoryRequest = modelMapper.map(categoryDTO, Category.class);
 
-		Category categories = categoriesService.createCategories(categoriesRequest);
+		Category category = categoryService.createCategories(categoryRequest);
 
-		CategoryDTO categoriesResponse = modelMapper.map(categories, CategoryDTO.class);
+		CategoryDTO categoryResponse = modelMapper.map(category, CategoryDTO.class);
 
-		return new ResponseEntity<CategoryDTO>(categoriesResponse, HttpStatus.CREATED);
+		return new ResponseEntity<CategoryDTO>(categoryResponse, HttpStatus.CREATED);
 	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<CategoryDTO> updateCategories(@PathVariable Long id,
-			@RequestBody Category updatedCategoriesDTO) {
+			@RequestBody Category updatedCategoryDTO) {
 
-		Category categoriesRequest = modelMapper.map(updatedCategoriesDTO, Category.class);
+		Category categoryRequest = modelMapper.map(updatedCategoryDTO, Category.class);
 
-		ResponseEntity<Category> updatedCategories = categoriesService.updateCategories(id, categoriesRequest);
+		ResponseEntity<Category> updatedCategory = categoryService.updateCategories(id, categoryRequest);
 
-		CategoryDTO categoriesResponse = modelMapper.map(updatedCategories, CategoryDTO.class);
+		CategoryDTO categoryResponse = modelMapper.map(updatedCategory, CategoryDTO.class);
 
-		return ResponseEntity.ok().body(categoriesResponse);
+		return ResponseEntity.ok().body(categoryResponse);
 
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteCategories(@PathVariable Long id) {
 
-		categoriesService.deleteCategories(id);
+		categoryService.deleteCategories(id);
 
 		return new ResponseEntity<>("Expense category successfully deleted!", HttpStatus.OK);
 	}

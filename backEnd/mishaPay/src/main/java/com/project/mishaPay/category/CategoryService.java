@@ -12,41 +12,41 @@ import com.project.mishaPay.exeption.ResourceNotFoundException;
 public class CategoryService {
 
 	@Autowired
-	private CategoryRepository categoriesRepository;
+	private CategoryRepository categoryRepository;
 
 	public List<Category> getCategories() {
 
-		return categoriesRepository.findAll();
+		return categoryRepository.findAll();
 	}
 
 	public Category getCategoriesById(Long id) throws ResourceNotFoundException {
 
-		Category categoryById = categoriesRepository.findById(id)
+		Category categoryById = categoryRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Category does not exist with id:" + id));
 
 		return categoryById;
 	}
 
-	public Category createCategories(Category categories) {
+	public Category createCategories(Category category) {
 
-		return categoriesRepository.save(categories);
+		return categoryRepository.save(category);
 	}
 
 	public ResponseEntity<Category> updateCategories(Long id, Category categoryDetails) {
 
-		Category categories = categoriesRepository.findById(id)
+		Category category = categoryRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Category does not exist with id: " + id));
 
-		categories.setName(categoryDetails.getName());
+		category.setName(categoryDetails.getName());
 
-		Category updatedCategories = categoriesRepository.save(categories);
+		Category updatedCategory = categoryRepository.save(category);
 
-		return ResponseEntity.ok(updatedCategories);
+		return ResponseEntity.ok(updatedCategory);
 	}
 
 	public void deleteCategories(Long id) {
 
-		categoriesRepository.deleteById(id);
+		categoryRepository.deleteById(id);
 
 	}
 

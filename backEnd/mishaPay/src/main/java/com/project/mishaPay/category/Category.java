@@ -35,6 +35,6 @@ public class Category {
 	@JsonIgnore
 	@OneToMany(mappedBy = "category")
 	@Getter
-	private List<Expense> expenses;
+	private List<Expense> expense;
 
 }

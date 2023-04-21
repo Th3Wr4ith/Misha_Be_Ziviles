@@ -6,49 +6,72 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.project.mishaPay.category.Category;
+import com.project.mishaPay.category.CategoryRepository;
+import com.project.mishaPay.dto.ExpenseDTO;
 import com.project.mishaPay.exeption.ResourceNotFoundException;
 
 @Service
 public class ExpenseService {
 
 	@Autowired
-	private ExpenseRepository expensesRepository;
+	private ExpenseRepository expenseRepository;
+
+	@Autowired
+	private CategoryRepository categoryRepository;
 
 	public List<Expense> getExpenses() {
 
-		return expensesRepository.findAll();
+		return expenseRepository.findAll();
 	}
 
 	public Expense getExpensesById(Long id) throws ResourceNotFoundException {
 
-		Expense expensesById = expensesRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Expenses does not exist with id:" + id));
+		Expense expenseById = expenseRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Expense does not exist with id:" + id));
 
-		return expensesById;
+		return expenseById;
 	}
 
-	public Expense createExpenses(Expense expenses) {
+	public Expense createExpenses(ExpenseDTO expenseDTO) {
 
-		return expensesRepository.save(expenses);
+		Expense expense = new Expense();
+
+		expense.setAmount(expenseDTO.getAmount());
+		expense.setName(expenseDTO.getName());
+		expense.setDate(expenseDTO.getDate());
+
+		Category category = categoryRepository.findCategoryByName(expenseDTO.getCategoryName())
+				.orElseThrow(() -> new ResourceNotFoundException("Category does not exist"));
+
+		expense.setCategory(category);
+
+		return expenseRepository.save(expense);
 	}
 
-	public ResponseEntity<Expense> updateExpenses(Long id, Expense expensesDetails) {
+	public ResponseEntity<Expense> updateExpenses(Long id, ExpenseDTO expenseDetails) {
 
-		Expense expenses = expensesRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Expenses not exist with id: " + id));
+		Expense expense = expenseRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Expense not exist with id: " + id));
 
-		expenses.setAmount(expensesDetails.getAmount());
-		expenses.setName(expensesDetails.getName());
-		expenses.setDate(expensesDetails.getDate());
+		expense.setAmount(expenseDetails.getAmount());
+		expense.setName(expenseDetails.getName());
+		expense.setDate(expenseDetails.getDate());
 
-		Expense updatedExpenses = expensesRepository.save(expenses);
+		Expense updatedExpense = expenseRepository.save(expense);
 
-		return ResponseEntity.ok(updatedExpenses);
+		Category category = categoryRepository.findCategoryByName(expenseDetails.getCategoryName())
+				.orElseThrow(() -> new ResourceNotFoundException("Category does not exist"));
+
+		expense.setCategory(category);
+
+		return ResponseEntity.ok(updatedExpense);
+
 	}
 
 	public void deleteExpenses(Long id) {
 
-		expensesRepository.deleteById(id);
+		expenseRepository.deleteById(id);
 
 	}
 }
