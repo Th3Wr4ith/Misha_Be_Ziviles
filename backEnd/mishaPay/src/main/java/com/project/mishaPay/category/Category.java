@@ -1,19 +1,12 @@
 package com.project.mishaPay.category;
 
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.project.mishaPay.expense.Expense;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Data
@@ -32,9 +25,9 @@ public class Category {
 	@Column(name = "category")
 	private String name;
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "category")
-	@Getter
-	private List<Expense> expense;
+//	@JsonIgnore
+//	@OneToMany(mappedBy = "category")
+//	@Getter
+//	private List<Expense> expense;
 
 }
