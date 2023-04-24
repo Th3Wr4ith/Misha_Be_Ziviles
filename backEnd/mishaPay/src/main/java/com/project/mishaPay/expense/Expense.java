@@ -5,7 +5,6 @@ import java.time.LocalDate;
 
 import com.project.mishaPay.category.Category;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,6 +14,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -34,14 +34,18 @@ public class Expense {
 	@Column(name = "amount")
 	private BigDecimal amount;
 
-	@Column(name = "expenseName")
+	@Column(name = "name")
 	private String name;
 
 	@Column(name = "date")
 	private LocalDate date;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@Column(name = "categoryName")
+	private String categoryName;
+
+	@ManyToOne
 	@JoinColumn(name = "category_id", referencedColumnName = "id")
+	@Getter
 	private Category category;
 
 	public void assignCategory(Category category) {

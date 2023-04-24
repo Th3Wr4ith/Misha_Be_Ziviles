@@ -12,8 +12,16 @@ public class ExpenseDTO {
 	private BigDecimal amount;
 	private String name;
 	private LocalDate date;
+	private String categoryName;
 
 	public String getCategoryName() {
+
 		return name;
 	}
+
+	public String setCategoryName(String name) {
+
+		return categoryName;
+	}
+
 }
