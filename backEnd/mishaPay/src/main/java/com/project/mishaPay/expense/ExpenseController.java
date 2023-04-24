@@ -60,7 +60,7 @@ public class ExpenseController {
 
 		ExpenseDTO expenseResponse = modelMapper.map(expense, ExpenseDTO.class);
 
-		expenseResponse.setName(expense.getCategory().getName());
+		expenseResponse.setCategoryName(expense.getCategory().getName());
 
 		return new ResponseEntity<ExpenseDTO>(expenseResponse, HttpStatus.CREATED);
 
