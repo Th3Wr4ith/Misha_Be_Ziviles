@@ -40,7 +40,6 @@ public class ExpenseService {
 		expense.setAmount(expenseDTO.getAmount());
 		expense.setName(expenseDTO.getName());
 		expense.setDate(expenseDTO.getDate());
-		expense.setCategoryName(expenseDTO.getCategoryName());
 
 		Category category = categoryRepository.findCategoryByName(expenseDTO.getCategoryName())
 				.orElseThrow(() -> new ResourceNotFoundException("Category does not exist"));
@@ -58,14 +57,13 @@ public class ExpenseService {
 		expense.setAmount(expenseDetails.getAmount());
 		expense.setName(expenseDetails.getName());
 		expense.setDate(expenseDetails.getDate());
-		expense.setCategoryName(expenseDetails.getCategoryName());
-
-		Expense updatedExpense = expenseRepository.save(expense);
 
 		Category category = categoryRepository.findCategoryByName(expenseDetails.getCategoryName())
 				.orElseThrow(() -> new ResourceNotFoundException("Category does not exist"));
 
 		expense.setCategory(category);
+
+		Expense updatedExpense = expenseRepository.save(expense);
 
 		return ResponseEntity.ok(updatedExpense);
 

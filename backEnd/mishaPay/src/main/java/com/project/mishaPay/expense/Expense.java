@@ -16,12 +16,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @Entity
 @Table(name = "expenses")
 public class Expense {
@@ -39,9 +37,6 @@ public class Expense {
 
 	@Column(name = "date")
 	private LocalDate date;
-
-	@Column(name = "categoryName")
-	private String categoryName;
 
 	@ManyToOne
 	@JoinColumn(name = "category_id", referencedColumnName = "id")

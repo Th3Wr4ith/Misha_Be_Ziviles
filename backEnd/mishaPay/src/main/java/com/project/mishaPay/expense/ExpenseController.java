@@ -38,7 +38,7 @@ public class ExpenseController {
 
 	@GetMapping
 	public List<ExpenseDTO> getExpenses() {
-
+		System.out.println(expenseService.getExpenses());
 		return expenseService.getExpenses().stream().map(expense -> modelMapper.map(expense, ExpenseDTO.class))
 				.collect(Collectors.toList());
 	}
