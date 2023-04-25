@@ -42,10 +42,10 @@ public class ExpenseService {
 		expense.setDate(expenseDTO.getDate());
 
 		Category category = categoryRepository.findCategoryByName(expenseDTO.getCategoryName())
-				.orElseThrow(() -> new ResourceNotFoundException("Category does not exist"));
+				.orElseThrow(() -> new ResourceNotFoundException(
+						"Category does not exist with name: " + expenseDTO.getCategoryName()));
 
 		expense.setCategory(category);
-
 		return expenseRepository.save(expense);
 	}
 
@@ -59,7 +59,8 @@ public class ExpenseService {
 		expense.setDate(expenseDetails.getDate());
 
 		Category category = categoryRepository.findCategoryByName(expenseDetails.getCategoryName())
-				.orElseThrow(() -> new ResourceNotFoundException("Category does not exist"));
+				.orElseThrow(() -> new ResourceNotFoundException(
+						"Category does not exist with name: " + expenseDetails.getCategoryName()));
 
 		expense.setCategory(category);
 

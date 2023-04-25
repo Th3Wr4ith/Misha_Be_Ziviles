@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.project.mishaPay.exeption.ResourceAlreadyExistExeption;
 import com.project.mishaPay.exeption.ResourceNotFoundException;
 
 @Service
@@ -29,7 +30,13 @@ public class CategoryService {
 
 	public Category createCategories(Category category) {
 
-		return categoryRepository.save(category);
+		if (category.getName().contains(category.getName())) {
+			throw new ResourceAlreadyExistExeption("Category already exist");
+
+		} else {
+
+			return categoryRepository.save(category);
+		}
 	}
 
 	public ResponseEntity<Category> updateCategories(Long id, Category categoryDetails) {
@@ -37,11 +44,17 @@ public class CategoryService {
 		Category category = categoryRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Category does not exist with id: " + id));
 
-		category.setName(categoryDetails.getName());
+		if (category.getName().contains(categoryDetails.getName())) {
+			throw new ResourceAlreadyExistExeption("Category already exist");
 
-		Category updatedCategory = categoryRepository.save(category);
+		} else {
 
-		return ResponseEntity.ok(updatedCategory);
+			category.setName(categoryDetails.getName());
+
+			Category updatedCategory = categoryRepository.save(category);
+
+			return ResponseEntity.ok(updatedCategory);
+		}
 	}
 
 	public void deleteCategories(Long id) {
