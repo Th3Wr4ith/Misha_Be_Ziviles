@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.mishaPay.dto.ExpenseDTO;
 
+import jakarta.validation.Valid;
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping(path = "/api/v1/expenses")
@@ -54,7 +56,7 @@ public class ExpenseController {
 	}
 
 	@PostMapping
-	public ResponseEntity<ExpenseDTO> createExpenses(@RequestBody ExpenseDTO expenseDTO) {
+	public ResponseEntity<ExpenseDTO> createExpenses(@Valid @RequestBody ExpenseDTO expenseDTO) {
 
 		Expense expense = expenseService.createExpenses(expenseDTO);
 
@@ -63,7 +65,6 @@ public class ExpenseController {
 		expenseResponse.setCategoryName(expense.getCategory().getName());
 
 		return new ResponseEntity<ExpenseDTO>(expenseResponse, HttpStatus.CREATED);
-
 	}
 
 	@PutMapping("/{id}")
