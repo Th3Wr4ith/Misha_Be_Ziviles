@@ -63,6 +63,7 @@ function AddIncomeForm({ handleSubmit, isLoading, success }) {
                       as={TextField}
                       name="name"
                       label="Name"
+                      autoComplete="off"
                       fullWidth
                       required
                       error={touched.name && Boolean(errors.name)}
@@ -74,12 +75,20 @@ function AddIncomeForm({ handleSubmit, isLoading, success }) {
                       as={TextField}
                       name="amount"
                       label="Amount"
+                      autoComplete="off"
                       InputLabelProps={{ shrink: true }}
-                      type="number"
                       fullWidth
                       required
+                      InputProps={{
+                        inputProps: { min: 0 },
+                      }}
                       error={touched.amount && Boolean(errors.amount)}
                       helperText={touched.amount && errors.amount}
+                      onKeyPress={(event) => {
+                        if (event?.key === "-" || event?.key === "+") {
+                          event.preventDefault();
+                        }
+                      }}
                       onChange={(e) => {
                         const regex = /^\d{0,7}(?:\.\d{1,2})?$/;
                         const isValid = regex.test(e.target.value);
@@ -100,6 +109,7 @@ function AddIncomeForm({ handleSubmit, isLoading, success }) {
                           name="date"
                           label="Date *"
                           value={values.date}
+                          disableFuture={true}
                           onChange={(value) => setFieldValue("date", value)}
                           renderInput={(params) => <TextField {...params} />}
                           onBlur={() => setFieldTouched("date", true)}
