@@ -69,8 +69,10 @@ function AddExpenseForm({ handleSubmit, isLoading, success }) {
                       as={TextField}
                       name="name"
                       label="Name"
+                      focused={false}
                       fullWidth
                       required
+                      autoComplete="off"
                       error={touched.name && Boolean(errors.name)}
                       helperText={touched.name && errors.name}
                     />
@@ -81,11 +83,22 @@ function AddExpenseForm({ handleSubmit, isLoading, success }) {
                       name="amount"
                       label="Amount"
                       type="number"
-                      InputLabelProps={{ shrink: true }}
+                      autoComplete="off"
+                      InputProps={{
+                        inputProps: {
+                          min: 0,
+                          maxLength: 10,
+                        },
+                      }}
                       fullWidth
                       required
                       error={touched.amount && Boolean(errors.amount)}
                       helperText={touched.amount && errors.amount}
+                      onKeyPress={(event) => {
+                        if (event?.key === "-" || event?.key === "+") {
+                          event.preventDefault();
+                        }
+                      }}
                       onChange={(e) => {
                         const regex = /^\d{0,7}(?:\.\d{1,2})?$/;
                         const isValid = regex.test(e.target.value);
@@ -105,6 +118,7 @@ function AddExpenseForm({ handleSubmit, isLoading, success }) {
                           as={DatePicker}
                           name="date"
                           label="Date *"
+                          disableFuture={true}
                           value={values.date}
                           onChange={(value) => setFieldValue("date", value)}
                           renderInput={(params) => <TextField {...params} />}
@@ -119,6 +133,7 @@ function AddExpenseForm({ handleSubmit, isLoading, success }) {
                         id="demo-simple-select-label"
                         error={touched.category && Boolean(errors.category)}
                         required
+                        label="sadad"
                       >
                         Category
                       </InputLabel>
@@ -128,6 +143,7 @@ function AddExpenseForm({ handleSubmit, isLoading, success }) {
                         labelId="demo-simple-select-label"
                         id="category"
                         label="Category"
+                        InputLabelProps={{ shrink: true }}
                         onChange={(event) => {
                           setFieldValue("category", event.target.value);
                         }}
