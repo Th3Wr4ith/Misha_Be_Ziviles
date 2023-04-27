@@ -37,4 +37,14 @@ const expenseValidationSchema = Yup.object().shape({
   category: Yup.string().required("The category is required"),
 });
 
-export { incomeValidationSchema, expenseValidationSchema };
+const categoriesValidationSchema = Yup.object().shape({
+  name: Yup.string()
+    .required("Category name is required")
+    .matches(/^[a-zA-Z ]+$/, "Name can only contain Latin letters and spaces"),
+});
+
+export {
+  incomeValidationSchema,
+  expenseValidationSchema,
+  categoriesValidationSchema,
+};

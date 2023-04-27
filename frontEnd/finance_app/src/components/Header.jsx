@@ -19,6 +19,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import HomeIcon from "@mui/icons-material/Home";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import CategoryIcon from "@mui/material/StepIcon";
 import { ListItem, TextField } from "@mui/material";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import { Link } from "react-router-dom";
@@ -176,6 +177,16 @@ export default function Header() {
               <CreditCardIcon />
               <Typography variant="button" sx={{ ml: 1 }}>
                 Expenses
+              </Typography>
+            </IconButton>
+            <IconButton
+              href="/categories"
+              color="inherit"
+              sx={{ borderRadius: 0, textAlign: "center" }}
+            >
+              <CategoryIcon />
+              <Typography variant="button" sx={{ ml: 1 }}>
+                Categories
               </Typography>
             </IconButton>
             {!openSearch ? (
