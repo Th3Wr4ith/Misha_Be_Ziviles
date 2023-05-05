@@ -66,8 +66,8 @@ function CategoriesTable({ categories, handleDelete }) {
                         <Table sx={{ minWidth: 650 }} aria-label="categories table">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>Category name</TableCell>
-                                    <TableCell align="right">Actions</TableCell>
+                                    <TableCell style={{fontWeight: 'bold'}}>Category name</TableCell>
+                                    <TableCell align="right" style={{fontWeight: 'bold'}}>Actions</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -75,20 +75,19 @@ function CategoriesTable({ categories, handleDelete }) {
                                     <TableRow key={key}>
                                         <TableCell component="th" scope="row">
                                             {editingId === key ? (
-                                                <FormControl fullWidth required>
+                                                <FormControl fullWidth>
                                                     <InputLabel
                                                         id={`${key}.name`}
                                                         error={touched.name && Boolean(errors.name)}
-                                                        required
                                                     >
-                                                        Category
                                                     </InputLabel>
                                                     <Field
-                                                        as={Select}
+                                                        as={TextField}
                                                         name={`${key}.name`}
                                                         labelId={`${key}.name`}
                                                         id={`${key}.name`}
-                                                        label="Category"
+                                                        label="Category name"
+                                                        required
                                                         value={values[key]?.name || ""}
                                                         onChange={(event) => {
                                                             setFieldValue(

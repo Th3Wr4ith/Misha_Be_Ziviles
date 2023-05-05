@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import Incomes from "./pages/Incomes";
 import Expenses from "./pages/Expenses";
+import Categories from "./pages/Categories"
 import Home from "./pages/Home";
 
 const darkTheme = createTheme({
@@ -28,6 +29,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/incomes" element={<Incomes />} />
             <Route path="/expenses" element={<Expenses />} />
+            <Route path="/categories" element={<Categories />} />
           </Routes>
         </Router>
       </ThemeProvider>

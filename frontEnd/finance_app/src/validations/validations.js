@@ -15,7 +15,7 @@ const incomeValidationSchema = Yup.object().shape({
     .required("Date is required"),
   name: Yup.string()
     .required("Name is required")
-    .matches(/^[a-zA-Z ]+$/, "Name can only contain Latin letters and spaces"),
+    .matches(/^[a-žA-Ž ]+$/, "Name can only contain Latin letters and spaces"),
 });
 
 const expenseValidationSchema = Yup.object().shape({
@@ -33,14 +33,14 @@ const expenseValidationSchema = Yup.object().shape({
     .required("Date is required"),
   name: Yup.string()
     .required("Name is required")
-    .matches(/^[a-zA-Z ]+$/, "Name can only contain Latin letters and spaces"),
+    .matches(/^[a-žA-Ž ]+$/, "Name can only contain Latin letters and spaces"),
   category: Yup.string().required("The category is required"),
 });
 
 const categoriesValidationSchema = Yup.object().shape({
   name: Yup.string()
     .required("Category name is required")
-    .matches(/^[a-zA-Z ]+$/, "Name can only contain Latin letters and spaces"),
+    .matches(/^[a-žA-Ž ]+$/, "Name can only contain Latin letters and spaces"),
 });
 
 export {

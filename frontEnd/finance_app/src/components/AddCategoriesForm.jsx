@@ -41,7 +41,7 @@ function AddCategoriesForm({ handleSubmit, isLoading, success }) {
             <AccordionDetails>
                 <Paper sx={{ p: 2 }}>
                     <Typography variant="h5" gutterBottom>
-                        Add category
+                        Add category name
                     </Typography>
                     <Formik
                         initialValues={{ name: "" }}
@@ -55,47 +55,23 @@ function AddCategoriesForm({ handleSubmit, isLoading, success }) {
                             values,
                             errors,
                             touched,
-                            setFieldTouched,
                         }) => (
                             <Form>
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} sm={6}>
-                                        <Field
-                                            as={TextField}
-                                            name="name"
-                                            label="Name"
-                                            fullWidth
-                                            required
-                                            error={touched.name && Boolean(errors.name)}
-                                            helperText={touched.name && errors.name}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <FormControl fu
-                                        llWidth required>
-                                            <InputLabel
-                                                id="demo-simple-select-label"
-                                                error={touched.categories && Boolean(errors.categories)}
-                                                required
-                                            >
-                                                Category
-                                            </InputLabel>
+                                        <FormControl style={{width: "100%"}}>
                                             <Field
-                                                as={Select}
+                                                as={TextField}
                                                 name="name"
                                                 labelId="demo-simple-select-label"
                                                 id="name"
                                                 label="Category name"
+                                                required
                                                 onChange={(event) => {
                                                     setFieldValue("name", event.target.value);
                                                 }}
                                                 error={touched.name && Boolean(errors.name)}
                                             >
-                                                {categories.map((name) => (
-                                                    <MenuItem key={name.value} value={name.value}>
-                                                        {name.value}
-                                                    </MenuItem>
-                                                ))}
                                             </Field>
                                             <FormHelperText sx={{ color: "red" }}>
                                                 {touched.name && errors.name}
