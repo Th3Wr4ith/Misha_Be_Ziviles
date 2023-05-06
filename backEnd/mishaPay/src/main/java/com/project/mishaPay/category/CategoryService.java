@@ -30,7 +30,7 @@ public class CategoryService {
 
 	public Category createCategories(Category category) {
 
-		if (category.getName().contains(category.getName())) {
+		if (categoryRepository.findCategoryByName(category.getName()).isPresent()) {
 			throw new ResourceAlreadyExistExeption("Category already exist");
 
 		} else {
