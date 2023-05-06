@@ -44,7 +44,7 @@ public class CategoryService {
 		Category category = categoryRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Category does not exist with id: " + id));
 
-		if (category.getName().contains(categoryDetails.getName())) {
+		if (categoryRepository.findCategoryByName(categoryDetails.getName()).isPresent()) {
 			throw new ResourceAlreadyExistExeption("Category already exist");
 
 		} else {
