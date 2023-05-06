@@ -56,12 +56,9 @@ function Categories() {
                 "http://localhost:8080/api/v1/categories",
                 newCategory
             );
-            if (response.status === 200) {
-                resetForm();
-                fetchCategories();
-            } else {
-                console.log("Error adding category: unexpected status code");
-            }
+            resetForm();
+            fetchCategories();
+
         } catch (error) {
             console.log("Error adding category:", error);
         }
