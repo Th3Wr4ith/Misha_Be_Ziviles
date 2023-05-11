@@ -8,10 +8,12 @@ function Expenses() {
   const [isLoading, setIsLoading] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     setIsMounted(true);
     fetchExpenses();
+    fetchCategories();
     return () => setIsMounted(false);
   }, []);
   //TODO: move these calls to a service
@@ -24,6 +26,16 @@ function Expenses() {
       console.error(error);
     } finally {
       setIsLoading(false); // set loading state back to false regardless of success or error
+    }
+  };
+
+ const fetchCategories = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/api/v1/categories");
+      setCategories(response.data);
+    }
+    catch (error) {
+      console.error(error);
     }
   };
 
@@ -44,14 +56,13 @@ function Expenses() {
       setIsLoading(false);
     }
   };
-
   const handleSubmit = async (values, { resetForm }) => {
     console.log(values);
     const newExpense = {
       name: values.name,
       amount: parseFloat(values.amount),
       date: values.date.toISOString().substr(0, 10),
-      category: values.category,
+      categoryName: values.category,
     };
 
     try {
@@ -59,13 +70,10 @@ function Expenses() {
         "http://localhost:8080/api/v1/expenses",
         newExpense
       );
-      if (response.status === 200) {
-        resetForm();
-        fetchExpenses();
-      } else {
-        console.log("Error adding expense: unexpected status code");
-      }
-    } catch (error) {
+      resetForm();
+      fetchExpenses();
+    }
+    catch (error) {
       console.log("Error adding expense:", error);
     }
   };
@@ -87,8 +95,9 @@ function Expenses() {
         handleSubmit={handleSubmit}
         isLoading={isLoading}
         success={showAlert}
+        categories={categories}
       />
-      <ExpenseTable expenses={expenses} handleDelete={handleDelete} />
+      <ExpenseTable expenses={expenses} handleDelete={handleDelete} categories={categories} />
     </>
   );
 }
