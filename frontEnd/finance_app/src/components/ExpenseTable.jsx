@@ -29,7 +29,7 @@ import dayjs from "dayjs";
 import "dayjs/locale/lt";
 import { expenseValidationSchema } from "../validations/validations";
 
-function expensesTable({ expenses, handleDelete }) {
+function expensesTable({ expenses, handleDelete, categories }) {
   // const expenseValidationSchema = (expenses) => {
   //   const fields = {};
   //   Object.keys(expenses).map((key) => {
@@ -47,8 +47,6 @@ function expensesTable({ expenses, handleDelete }) {
   //   });
   //   return Yup.object().shape(fields);
   // };
-
-  const categories = [{ value: "Food" }, { value: "Gas" }, { value: "Taxes" }];
   const [editingId, setEditingId] = useState(null);
   const [confirmDeleteIndex, setConfirmDeleteIndex] = useState(-1);
 
@@ -137,6 +135,7 @@ function expensesTable({ expenses, handleDelete }) {
                             as={DatePicker}
                             name={`${key}.date`}
                             fullWidth
+                            disableFuture={true}
                             format="YYYY-MM-DD"
                             value={dayjs(values[key].date, "YYYY-MM-DD")}
                             renderInput={(params) => <TextField {...params} />}
@@ -186,16 +185,13 @@ function expensesTable({ expenses, handleDelete }) {
                           </InputLabel>
                           <Field
                             as={Select}
-                            name={`${key}.category`}
+                            name={`${key}.categoryName`}
                             labelId={`${key}-category-label`}
                             id={`${key}-category`}
                             label="Category"
-                            value={values[key]?.category || ""}
+                            value={values[key]?.categoryName || ""}
                             onChange={(event) => {
-                              setFieldValue(
-                                `${key}.category`,
-                                event.target.value
-                              );
+                              setFieldValue(`${key}.categoryName`, event.target.value);
                             }}
                             error={
                               touched[key]?.category &&
@@ -204,10 +200,10 @@ function expensesTable({ expenses, handleDelete }) {
                           >
                             {categories.map((category) => (
                               <MenuItem
-                                key={category.value}
-                                value={category.value}
+                                key={category.name}
+                                value={category.name}
                               >
-                                {category.value}
+                                {category.name}
                               </MenuItem>
                             ))}
                           </Field>
@@ -216,7 +212,7 @@ function expensesTable({ expenses, handleDelete }) {
                           </FormHelperText>
                         </FormControl>
                       ) : (
-                        values[key].category
+                        values[key].categoryName
                       )}
                     </TableCell>
 

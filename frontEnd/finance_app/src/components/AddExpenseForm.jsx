@@ -25,10 +25,8 @@ import SaveIcon from "@mui/icons-material/Save";
 import "dayjs/locale/lt";
 import { expenseValidationSchema } from "../validations/validations";
 
-function AddExpenseForm({ handleSubmit, isLoading, success }) {
+function AddExpenseForm({ handleSubmit, isLoading, categories, success }) {
   const [isExpanded, setIsExpanded] = useState(false);
-
-  const categories = [{ value: "Food" }, { value: "Gas" }, { value: "Taxes" }];
 
   const handleAccordionChange = () => {
     setIsExpanded((prevExpanded) => !prevExpanded);
@@ -140,7 +138,7 @@ function AddExpenseForm({ handleSubmit, isLoading, success }) {
                       <Field
                         as={Select}
                         name="category"
-                        labelId="demo-simple-select-label"
+                        labelId="category-label"
                         id="category"
                         label="Category"
                         InputLabelProps={{ shrink: true }}
@@ -150,8 +148,10 @@ function AddExpenseForm({ handleSubmit, isLoading, success }) {
                         error={touched.category && Boolean(errors.category)}
                       >
                         {categories.map((category) => (
-                          <MenuItem key={category.value} value={category.value}>
-                            {category.value}
+                          <MenuItem
+                            value={category.name}>
+
+                            {category.name}
                           </MenuItem>
                         ))}
                       </Field>
