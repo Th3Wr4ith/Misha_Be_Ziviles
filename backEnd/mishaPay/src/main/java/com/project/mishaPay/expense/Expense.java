@@ -13,7 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -31,17 +31,17 @@ public class Expense {
 	@Column(name = "id")
 	private Long id;
 
-	@NotBlank(message = "This field is required")
+	@NotNull(message = "This field is required")
 	@Min(1)
 	@Column(name = "amount")
 	private BigDecimal amount;
 
-	@NotBlank(message = "This field is required")
+	@NotNull(message = "This field is required")
 	@Column(name = "name")
 	private String name;
 
+	@NotNull(message = "This field is required")
 	@Column(name = "date")
-	@NotBlank(message = "This field is required")
 	private LocalDate date;
 
 	@ManyToOne
