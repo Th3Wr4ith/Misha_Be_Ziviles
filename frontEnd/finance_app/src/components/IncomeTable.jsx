@@ -77,6 +77,7 @@ function IncomeTable({ income, handleDelete }) {
                         <Field
                           as={TextField}
                           fullWidth
+                          disableFuture={true}
                           name={`${key}.amount`}
                           value={values[key].amount}
                           error={touched.amount && Boolean(errors.amount)}

@@ -135,6 +135,7 @@ function expensesTable({ expenses, handleDelete, categories }) {
                             as={DatePicker}
                             name={`${key}.date`}
                             fullWidth
+                            disableFuture={true}
                             format="YYYY-MM-DD"
                             value={dayjs(values[key].date, "YYYY-MM-DD")}
                             renderInput={(params) => <TextField {...params} />}
@@ -184,13 +185,13 @@ function expensesTable({ expenses, handleDelete, categories }) {
                           </InputLabel>
                           <Field
                             as={Select}
-                            name={`${key}.category`}
+                            name={`${key}.categoryName`}
                             labelId={`${key}-category-label`}
                             id={`${key}-category`}
                             label="Category"
-                            value={values[key]?.category || ""}
+                            value={values[key]?.categoryName || ""}
                             onChange={(event) => {
-                              setFieldValue(`${key}.category`, event.target.value);
+                              setFieldValue(`${key}.categoryName`, event.target.value);
                             }}
                             error={
                               touched[key]?.category &&
